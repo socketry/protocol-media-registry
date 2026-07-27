@@ -18,9 +18,11 @@ Gem::Specification.new do |spec|
 	}
 	
 	spec.files = Dir.glob(["{ext,lib}/**/*", "*.md"], File::FNM_DOTMATCH, base: __dir__)
+	spec.require_paths = ["lib"]
+	
 	spec.extensions = ["ext/protocol/media/data/extconf.rb"]
 	
-	spec.required_ruby_version = ">= 3.2"
+	spec.required_ruby_version = ">= 3.3"
 	
 	spec.add_dependency "protocol-media", "~> 0.1"
 end
