@@ -5,7 +5,10 @@ Provides generated, indexed media type registry data for `protocol-media`. It us
 ``` ruby
 require "protocol/media/data"
 
-Protocol::Media::Data["application/json"]
-Protocol::Media::Data.for_extension("json")
-Protocol::Media::Data.for_path("document.json")
+record = Protocol::Media::Data["application/json"]
+record.type # => #<Protocol::Media::Type ...>
+record.extensions # => ["json", ...]
+
+Protocol::Media::Data.for_extension("json").type
+Protocol::Media::Data.for_path("document.json").type
 ```

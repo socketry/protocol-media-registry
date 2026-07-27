@@ -7,29 +7,30 @@ require "protocol/media/data"
 
 describe Protocol::Media::Data do
 	it "looks up a media type by name" do
-		type = subject["application/json"]
+		record = subject["application/json"]
 		
-		expect(type).to be_a(Protocol::Media::Type)
-		expect(type.name).to be == "application/json"
-		expect(type.extensions).to be(:include?, "json")
+		expect(record).to be_a(Protocol::Media::Data::Record)
+		expect(record.type).to be_a(Protocol::Media::Type)
+		expect(record.type.name).to be == "application/json"
+		expect(record.extensions).to be(:include?, "json")
 	end
 	
 	it "looks up a media type by extension" do
-		type = subject.for_extension(".html")
+		record = subject.for_extension(".html")
 		
-		expect(type.name).to be == "text/html"
+		expect(record.type.name).to be == "text/html"
 	end
 	
 	it "prefers the highest priority type for an extension" do
-		type = subject.for_extension("xls")
+		record = subject.for_extension("xls")
 		
-		expect(type.name).to be == "application/vnd.ms-excel"
+		expect(record.type.name).to be == "application/vnd.ms-excel"
 	end
 	
 	it "looks up a media type by path" do
-		type = subject.for_path("public/index.HTML")
+		record = subject.for_path("public/index.HTML")
 		
-		expect(type.name).to be == "text/html"
+		expect(record.type.name).to be == "text/html"
 	end
 	
 	it "returns nil for unknown media types" do
