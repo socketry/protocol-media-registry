@@ -1,22 +1,74 @@
+%{
+/* Released under the MIT License. */
+/* Copyright, 2026, by Samuel Williams. */
+%}
 %language=ANSI-C
-%define slot-name content_type
-%define hash-function-name mime_type_hash
-%define lookup-function-name lookup_mime_type_by_content_type
+%readonly-tables
+%define slot-name name
+%define hash-function-name record_hash
+%define lookup-function-name lookup_record
 %enum
 %switch=4
-struct MimeType {
-	const char * content_type;
-	const char * encoding;
-	const char * extensions;
-};
+struct MediaTypeRecord { const char *name; const char *encoding; const char *extensions; };
 %%
 application/1d-interleaved-parityfec, "base64", 0
+application/1ob, "base64", 0
 application/3gpdash-qoe-report+xml, "base64", 0
 application/3gpp-ims+xml, "base64", 0
+application/3gpp-mbs-object-manifest+json, "base64", 0
+application/3gpp-mbs-user-service-descriptions+json, "base64", 0
+application/3gpp-media-delivery-metrics-report+json, "base64", 0
+application/3gppHal+json, "base64", 0
+application/3gppHalForms+json, "base64", 0
 application/A2L, "base64", 0
+application/AML, "base64", 0
+application/ATF, "base64", 0
+application/ATFX, "base64", 0
+application/ATXML, "base64", 0
+application/CDFX+XML, "base64", 0
+application/CEA, "base64", 0
+application/CESR, "base64", 0
+application/CSTAdata+xml, "base64", 0
+application/DCD, "base64", 0
+application/DII, "base64", 0
+application/DIT, "base64", 0
+application/EDI-X12, "base64", 0
+application/EDI-consent, "base64", 0
+application/EDIFACT, "base64", 0
+application/EmergencyCallData.Comment+xml, "base64", 0
+application/EmergencyCallData.Control+xml, "base64", 0
+application/EmergencyCallData.DeviceInfo+xml, "base64", 0
+application/EmergencyCallData.LegacyESN+json, "base64", 0
+application/EmergencyCallData.ProviderInfo+xml, "base64", 0
+application/EmergencyCallData.ServiceInfo+xml, "base64", 0
+application/EmergencyCallData.SubscriberInfo+xml, "base64", 0
+application/EmergencyCallData.VEDS+xml, "base64", 0
+application/EmergencyCallData.cap+xml, "base64", 0
+application/EmergencyCallData.eCall.MSD, "base64", 0
+application/H224, "base64", 0
+application/LXF, "base64", 0
+application/MF4, "base64", 0
+application/ODX, "base64", 0
+application/PDX, "base64", 0
+application/SLA, "base64", 0
+application/ST2110-41, "base64", 0
+application/STEP, "base64", 0
+application/TETRA_ISI, "base64", 0
+application/VMSBACKUP, "base64", "bck"
+application/aas+zip, "base64", 0
 application/acad, "base64", 0
 application/access, "base64", "mdf mda mdb mde"
+application/ace+cbor, "base64", 0
+application/ace+json, "base64", 0
+application/ace-groupcomm+cbor, "base64", 0
+application/ace-trl+cbor, "base64", 0
 application/activemessage, "base64", 0
+application/activity+json, "base64", 0
+application/aif+cbor, "base64", 0
+application/aif+json, "base64", 0
+application/akn+xml, "base64", 0
+application/alto-cdni+json, "base64", 0
+application/alto-cdnifilter+json, "base64", 0
 application/alto-costmap+json, "base64", 0
 application/alto-costmapfilter+json, "base64", 0
 application/alto-directory+json, "base64", 0
@@ -27,118 +79,200 @@ application/alto-endpointpropparams+json, "base64", 0
 application/alto-error+json, "base64", 0
 application/alto-networkmap+json, "base64", 0
 application/alto-networkmapfilter+json, "base64", 0
-application/AML, "base64", 0
+application/alto-propmap+json, "base64", 0
+application/alto-propmapparams+json, "base64", 0
+application/alto-tips+json, "base64", 0
+application/alto-tipsparams+json, "base64", 0
+application/alto-updatestreamcontrol+json, "base64", 0
+application/alto-updatestreamparams+json, "base64", 0
 application/andrew-inset, "base64", "ez"
 application/appledouble, "base64", 0
 application/applefile, "base64", 0
+application/application/jwk-set+jwt, "base64", 0
 application/applixware, "base64", "aw"
-application/ATF, "base64", 0
-application/ATFX, "base64", 0
+application/asyncapi+json, "base64", 0
+application/asyncapi+yaml, "base64", 0
+application/at+jwt, "base64", 0
 application/atom+xml, "8bit", "atom"
 application/atomcat+xml, "8bit", "atomcat"
 application/atomdeleted+xml, "8bit", 0
 application/atomicmail, "base64", 0
 application/atomsvc+xml, "8bit", "atomsvc"
-application/ATXML, "base64", 0
+application/atsc-dwd+xml, "base64", 0
+application/atsc-dynamic-event-message, "base64", 0
+application/atsc-held+xml, "base64", 0
+application/atsc-rdt+json, "base64", 0
+application/atsc-rsat+xml, "base64", 0
 application/auth-policy+xml, "8bit", 0
+application/automationml-aml+xml, "base64", 0
+application/automationml-amlx+zip, "base64", 0
 application/bacnet-xdd+zip, "base64", 0
 application/batch-SMTP, "base64", 0
 application/beep+xml, "base64", 0
+application/bizagi-modeler, "base64", "bpm"
 application/bleeper, "base64", "bleep"
+application/bufr, "base64", 0
+application/c2pa, "base64", 0
 application/calendar+json, "base64", 0
 application/calendar+xml, "base64", 0
 application/call-completion, "base64", 0
 application/cals-1840, "base64", 0
 application/cals1840, "base64", 0
-application/cbor, "base64", 0
+application/cap+xml, "base64", 0
+application/captive+json, "base64", 0
+application/cbor, "base64", "cbor"
+application/cbor-seq, "base64", 0
+application/cccex, "base64", 0
 application/ccmp+xml, "base64", 0
 application/ccxml+xml, "base64", "ccxml"
-application/CDFX+XML, "base64", 0
+application/cda+xml, "base64", 0
 application/cdmi-capability, "base64", "cdmia"
 application/cdmi-container, "base64", "cdmic"
 application/cdmi-domain, "base64", "cdmid"
 application/cdmi-object, "base64", "cdmio"
 application/cdmi-queue, "base64", "cdmiq"
 application/cdni, "base64", 0
-application/CEA, "base64", 0
+application/ce+cbor, "base64", 0
 application/cea-2018+xml, "base64", 0
 application/cellml+xml, "base64", 0
+application/cert-chain+cbor, "base64", 0
 application/cfw, "base64", 0
+application/cid, "base64", 0
+application/cid-edhoc+cbor-seq, "base64", 0
+application/city+json, "base64", 0
+application/city+json-seq, "base64", 0
 application/clariscad, "base64", 0
+application/clf+xml, "base64", 0
+application/client-authentication+jwt, "base64", 0
+application/cloudevents+json, "base64", 0
+application/cloudevents-batch+json, "base64", 0
+application/clr, "base64", 0
+application/clue+xml, "base64", 0
+application/clue_info+xml, "base64", 0
+application/cmcd, "base64", 0
 application/cms, "base64", 0
+application/cmw+cbor, "base64", 0
+application/cmw+cose, "base64", 0
+application/cmw+json, "base64", 0
+application/cmw+jws, "base64", 0
 application/cnrp+xml, "base64", 0
+application/coap-eap, "base64", 0
 application/coap-group+json, "base64", 0
+application/coap-payload, "base64", 0
 application/commonground, "base64", 0
+application/concise-problem-details+cbor, "base64", 0
 application/conference-info+xml, "base64", 0
+application/coreldraw, "base64", "cdr"
+application/cose, "base64", 0
+application/cose-key, "base64", 0
+application/cose-key-set, "base64", 0
+application/cose-x509, "base64", 0
 application/cpl+xml, "base64", 0
 application/csrattrs, "base64", 0
 application/csta+xml, "base64", 0
-application/CSTAdata+xml, "base64", 0
 application/csvm+json, "base64", 0
 application/cu-seeme, "base64", "cu"
+application/cwl, "base64", 0
+application/cwl+json, "base64", 0
+application/cwl+yaml, "base64", 0
+application/cwt, "base64", 0
 application/cybercash, "base64", 0
-application/dash+xml, "base64", 0
+application/dash+xml, "base64", "mpd"
+application/dash-patch+xml, "base64", 0
 application/dashdelta, "base64", 0
 application/davmount+xml, "base64", "davmount"
 application/dca-rft, "base64", 0
-application/DCD, "base64", 0
 application/dec-dx, "base64", 0
+application/deflate, "base64", 0
 application/dialog-info+xml, "base64", 0
 application/dicom, "base64", "dcm"
-application/DII, "base64", 0
-application/DIT, "base64", 0
+application/dicom+json, "base64", 0
+application/dicom+xml, "base64", 0
+application/did, "base64", 0
+application/dif+xml, "base64", "dif"
+application/dita+xml, "base64", 0
 application/dns, "base64", 0
+application/dns+json, "base64", 0
+application/dns-message, "base64", 0
 application/docbook+xml, "base64", "dbk"
+application/dots+cbor, "base64", 0
+application/dpop+jwt, "base64", 0
 application/drafting, "base64", 0
 application/dskpp+xml, "base64", 0
 application/dssc+der, "base64", "dssc"
 application/dssc+xml, "base64", "xdssc"
 application/dvcs, "base64", 0
 application/dxf, "base64", 0
-application/ecmascript, "base64", "ecma"
-application/EDI-consent, "base64", 0
-application/EDI-X12, "base64", 0
-application/EDIFACT, "base64", 0
+application/eat+cwt, "base64", 0
+application/eat+jwt, "base64", 0
+application/eat-bun+cbor, "base64", 0
+application/eat-bun+json, "base64", 0
+application/eat-ucs+cbor, "base64", 0
+application/eat-ucs+json, "base64", 0
+application/ecmascript, "base64", "ecma es"
+application/edhoc+cbor-seq, "base64", 0
 application/efi, "base64", 0
-application/EmergencyCallData.Comment+xml, "base64", 0
-application/EmergencyCallData.DeviceInfo+xml, "base64", 0
-application/EmergencyCallData.ProviderInfo+xml, "base64", 0
-application/EmergencyCallData.ServiceInfo+xml, "base64", 0
-application/EmergencyCallData.SubscriberInfo+xml, "base64", 0
+application/elm+json, "base64", 0
+application/elm+xml, "base64", 0
 application/emma+xml, "base64", "emma"
 application/emotionml+xml, "base64", 0
 application/encaprtp, "base64", 0
+application/entity-statement+jwt, "base64", 0
+application/envi.hdr, "base64", "hdr"
 application/epp+xml, "base64", 0
 application/epub+zip, "base64", "epub"
 application/eshop, "base64", 0
 application/example, "base64", 0
 application/excel, "base64", "xls xlt"
 application/exi, "base64", "exi"
+application/expect-ct-report+json, "base64", 0
+application/explicit-registration-response+jwt, "base64", 0
+application/express, "base64", 0
 application/fastinfoset, "base64", 0
 application/fastsoap, "base64", 0
+application/fdf, "base64", 0
 application/fdt+xml, "base64", 0
-application/fits, "base64", 0
+application/fhir+json, "base64", 0
+application/fhir+xml, "base64", 0
+application/fits, "base64", "fits fit fts"
+application/flexfec, "base64", 0
 application/font-sfnt, "base64", "otf ttf"
 application/font-tdpfr, "base64", "pfr"
 application/font-woff, "base64", "woff woff2"
 application/fractals, "base64", 0
 application/framework-attributes+xml, "base64", 0
 application/futuresplash, "base64", "spl"
+application/geo+json, "base64", 0
+application/geo+json-seq, "base64", 0
+application/geofeed+csv, "base64", 0
+application/geopackage+sqlite3, "base64", 0
+application/geopose+json, "base64", 0
+application/geoxacml+json, "base64", 0
+application/geoxacml+xml, "base64", 0
 application/ghostview, "base64", 0
+application/gltf-buffer, "base64", 0
 application/gml+xml, "base64", "gml"
+application/gnap-binding-jws, "base64", 0
+application/gnap-binding-jwsd, "base64", 0
+application/gnap-binding-rotation-jws, "base64", 0
+application/gnap-binding-rotation-jwsd, "base64", 0
 application/gpx+xml, "base64", "gpx"
+application/grib, "base64", 0
 application/gxf, "base64", "gxf"
-application/gzip, "base64", "gz"
-application/H224, "base64", 0
+application/gzip, "base64", "gz tgz"
 application/held+xml, "base64", 0
 application/hep, "base64", "hep"
+application/hl7v2+xml, "base64", 0
 application/http, "base64", 0
+application/hwp+zip, "base64", "hwpx"
 application/hyperstudio, "base64", "stk"
 application/i-deas, "base64", 0
 application/ibe-key-request+xml, "base64", 0
 application/ibe-pkg-reply+xml, "base64", 0
 application/ibe-pp-data, "base64", 0
 application/iges, "base64", 0
+application/illustrator, "base64", "ai"
+application/illustrator+ps, "base64", 0
 application/im-iscomposing+xml, "base64", 0
 application/imagemap, "8bit", "imagemap imap"
 application/index, "base64", 0
@@ -146,7 +280,9 @@ application/index.cmd, "base64", 0
 application/index.obj, "base64", 0
 application/index.response, "base64", 0
 application/index.vnd, "base64", 0
+application/inf, "base64", 0
 application/inkml+xml, "base64", "ink inkml"
+application/ion, "base64", 0
 application/iotp, "base64", 0
 application/ipfix, "base64", "ipfix"
 application/ipp, "base64", 0
@@ -155,31 +291,49 @@ application/its+xml, "base64", 0
 application/java-archive, "base64", "jar"
 application/java-serialized-object, "base64", "ser"
 application/java-vm, "base64", "class"
-application/javascript, "8bit", "js sj"
+application/javascript, "8bit", "js mjs sj"
+application/jcr-sql2, "base64", 0
+application/jcr-xpath, "base64", 0
+application/jf2feed+json, "base64", 0
 application/jose, "base64", 0
 application/jose+json, "base64", 0
 application/jrd+json, "base64", 0
-application/json, "8bit", "json"
+application/jscalendar+json, "base64", 0
+application/jscontact+json, "base64", 0
+application/json, "8bit", "json map"
+application/json-nd, "base64", 0
 application/json-patch+json, "base64", 0
+application/json-patch-query+json, "base64", 0
 application/json-seq, "base64", 0
 application/jsonml+json, "base64", "jsonml"
+application/jsonpath, "base64", 0
 application/jwk+json, "base64", 0
 application/jwk-set+json, "base64", 0
+application/jwk-set+jwt, "base64", 0
 application/jwt, "base64", 0
+application/kate, "base64", 0
+application/kb+cwt, "base64", 0
+application/kb+jwt, "base64", 0
+application/kbl+xml, "base64", 0
 application/kpml-request+xml, "base64", 0
 application/kpml-response+xml, "base64", 0
 application/ld+json, "base64", 0
+application/lgr+xml, "base64", 0
 application/link-format, "base64", 0
+application/linkset, "base64", 0
+application/linkset+json, "base64", 0
 application/load-control+xml, "base64", 0
+application/logout+jwt, "base64", 0
 application/lost+xml, "base64", "lostxml"
 application/lostsync+xml, "base64", 0
 application/lotus-123, "base64", "wks"
-application/LXF, "base64", 0
+application/lpf+zip, "base64", 0
 application/mac-binhex40, "8bit", "hqx"
 application/mac-compactpro, "base64", "cpt"
 application/macbinary, "base64", 0
 application/macwriteii, "base64", 0
 application/mads+xml, "base64", "mads"
+application/manifest+json, "base64", "webmanifest"
 application/marc, "base64", "mrc"
 application/marcxml+xml, "base64", "mrcx"
 application/mathcad, "base64", "mcd"
@@ -200,6 +354,8 @@ application/mbms-register-response+xml, "base64", 0
 application/mbms-schedule+xml, "base64", 0
 application/mbms-user-service-description+xml, "base64", 0
 application/mbox, "base64", "mbox"
+application/measured-component+cbor, "base64", 0
+application/measured-component+json, "base64", 0
 application/media-policy-dataset+xml, "base64", 0
 application/media_control+xml, "base64", 0
 application/mediaservercontrol+xml, "base64", "mscml"
@@ -207,8 +363,12 @@ application/merge-patch+json, "base64", 0
 application/metalink+xml, "base64", "metalink"
 application/metalink4+xml, "base64", "meta4"
 application/mets+xml, "base64", "mets"
-application/MF4, "base64", 0
+application/microdata+json, "8bit", 0
 application/mikey, "base64", 0
+application/mipc, "base64", 0
+application/missing-blocks+cbor-seq, "base64", 0
+application/mmt-aei+xml, "base64", 0
+application/mmt-usd+xml, "base64", 0
 application/mods+xml, "base64", "mods"
 application/moss-keys, "base64", 0
 application/moss-signature, "base64", 0
@@ -224,7 +384,13 @@ application/mrb-publish+xml, "base64", 0
 application/msc-ivr+xml, "base64", 0
 application/msc-mixer+xml, "base64", 0
 application/msword, "base64", "doc dot wrd"
+application/msword2, "base64", 0
+application/msword5, "base64", 0
+application/mud+json, "base64", 0
+application/multipart-core, "base64", 0
 application/mxf, "base64", "mxf"
+application/n-quads, "base64", 0
+application/n-triples, "base64", 0
 application/nasdata, "base64", 0
 application/netcdf, "base64", "nc cdf"
 application/news-checkgroups, "base64", 0
@@ -232,22 +398,34 @@ application/news-groupinfo, "base64", 0
 application/news-message-id, "base64", 0
 application/news-transmission, "base64", 0
 application/nlsml+xml, "base64", 0
+application/node, "base64", 0
 application/nss, "base64", 0
+application/oauth-authz-req+jwt, "base64", 0
+application/oblivious-dns-message, "base64", 0
 application/ocsp-request, "base64", 0
 application/ocsp-response, "base64", 0
-application/octet-stream, "base64", "bin dms lha lzh exe class ani pgp gpg so dll dylib bpk deploy dist distz dump elc lrf mar pkg"
+application/octet-stream, "base64", "bin dms lha lzh class ani pgp gpg so dll dylib bpk deploy dist distz dump elc lrf mar pkg ipa"
 application/oda, "base64", "oda"
-application/ODX, "base64", 0
+application/odm+json, "base64", 0
+application/odm+xml, "base64", 0
 application/oebps-package+xml, "base64", "opf"
 application/ogg, "base64", "ogx"
+application/ohttp-keys, "base64", 0
 application/omdoc+xml, "base64", "omdoc"
 application/onenote, "base64", "onepkg onetmp onetoc onetoc2"
+application/onix-message+xml, "base64", 0
+application/onix-message-short+xml, "base64", 0
+application/opc-nodeset+xml, "base64", 0
+application/oscore, "base64", 0
 application/oxps, "base64", "oxps"
+application/p21, "base64", 0
+application/p21+zip, "base64", 0
 application/p2p-overlay+xml, "base64", 0
 application/parityfec, "base64", 0
+application/passport, "base64", 0
 application/patch-ops-error+xml, "base64", "xer"
-application/pdf, "base64", "pdf"
-application/PDX, "base64", 0
+application/pdf, "base64", "pdf ai"
+application/pem-certificate-chain, "base64", 0
 application/pgp-encrypted, "7bit", "pgp gpg"
 application/pgp-keys, "7bit", 0
 application/pgp-signature, "base64", "asc sig"
@@ -259,65 +437,121 @@ application/pkcs12, "base64", 0
 application/pkcs7-mime, "base64", "p7m p7c"
 application/pkcs7-signature, "base64", "p7s"
 application/pkcs8, "base64", "p8"
+application/pkcs8-encrypted, "base64", 0
 application/pkix-attr-cert, "base64", "ac"
 application/pkix-cert, "base64", "cer"
 application/pkix-crl, "base64", "crl"
+application/pkix-keyinfo, "base64", 0
 application/pkix-pkipath, "base64", "pkipath"
 application/pkixcmp, "base64", "pki"
 application/pls+xml, "base64", "pls"
 application/poc-settings+xml, "base64", 0
-application/postscript, "8bit", "ai eps ps"
+application/postscript, "8bit", "eps ps ai epsf epsi"
 application/powerpoint, "base64", "ppt pps pot"
 application/ppsp-tracker+json, "base64", 0
+application/private-token-issuer-directory, "base64", 0
+application/private-token-request, "base64", 0
+application/private-token-response, "base64", 0
 application/pro_eng, "base64", 0
 application/problem+json, "base64", 0
 application/problem+xml, "base64", 0
+application/protobuf, "base64", 0
+application/protobuf+json, "base64", 0
 application/provenance+xml, "base64", 0
+application/provided-claims+jwt, "base64", 0
+application/prql, "base64", "prql"
 application/prs.alvestrand.titrax-sheet, "base64", 0
+application/prs.bwtc32key, "base64", 0
 application/prs.cww, "base64", "cw cww"
+application/prs.cyn, "base64", 0
 application/prs.hpub+zip, "base64", 0
+application/prs.implied-document+xml, "base64", 0
+application/prs.implied-executable, "base64", 0
+application/prs.implied-object+json, "base64", 0
+application/prs.implied-object+json-seq, "base64", 0
+application/prs.implied-object+yaml, "base64", 0
+application/prs.implied-structure, "base64", 0
+application/prs.mayfile, "base64", 0
 application/prs.nprend, "base64", "rnd rct"
 application/prs.plucker, "base64", 0
 application/prs.rdf-xml-crypt, "base64", 0
+application/prs.sclt, "base64", 0
+application/prs.vcfbzip2, "base64", 0
 application/prs.xsf+xml, "base64", 0
 application/pskc+xml, "base64", "pskcxml"
+application/pvd+json, "base64", 0
 application/qsig, "base64", 0
+application/quicktime, "base64", 0
 application/quicktimeplayer, "base64", "qtl"
 application/raptorfec, "base64", 0
 application/rdap+json, "base64", 0
-application/rdf+xml, "8bit", "rdf"
+application/rdf+xml, "8bit", "rdf owl xmp"
 application/reginfo+xml, "base64", "rif"
 application/relax-ng-compact-syntax, "base64", "rnc"
 application/remote-printing, "base64", 0
 application/remote_printing, "base64", 0
+application/reports+json, "base64", 0
 application/reputon+json, "base64", 0
+application/resolve-response+jwt, "base64", 0
 application/resource-lists+xml, "base64", "rl"
 application/resource-lists-diff+xml, "base64", "rld"
 application/rfc+xml, "base64", 0
+application/rif+xml, "base64", 0
 application/riscos, "base64", 0
 application/rlmi+xml, "base64", 0
 application/rls-services+xml, "base64", "rs"
+application/roughtime-malfeasance+json, "base64", 0
+application/roughtime-server+json, "base64", 0
+application/route-apd+xml, "base64", 0
+application/route-s-tsid+xml, "base64", 0
+application/route-usd+xml, "base64", 0
+application/rpki-checklist, "base64", 0
 application/rpki-ghostbusters, "base64", "gbr"
 application/rpki-manifest, "base64", "mft"
+application/rpki-publication, "base64", 0
 application/rpki-roa, "base64", "roa"
+application/rpki-signed-tal, "base64", 0
 application/rpki-updown, "base64", 0
+application/rs-metadata+xml, "base64", 0
 application/rsd+xml, "base64", "rsd"
+application/rsl+xml, "base64", 0
 application/rss+xml, "base64", "rss"
 application/rtf, "base64", "rtf"
 application/rtploopback, "base64", 0
 application/rtx, "base64", 0
 application/samlassertion+xml, "base64", 0
 application/samlmetadata+xml, "base64", 0
+application/sarif+json, "base64", 0
+application/sarif-external-properties+json, "base64", 0
+application/sbe, "base64", 0
 application/sbml+xml, "base64", "sbml"
 application/scaip+xml, "base64", 0
 application/scim+json, "base64", 0
+application/scitt-receipt+cose, "base64", 0
+application/scitt-statement+cose, "base64", 0
 application/scvp-cv-request, "base64", "scq"
 application/scvp-cv-response, "base64", "scs"
 application/scvp-vp-request, "base64", "spq"
 application/scvp-vp-response, "base64", "spp"
+application/sd-cwt, "base64", 0
+application/sd-jwt, "base64", 0
+application/sd-jwt+json, "base64", 0
+application/sdf+json, "base64", 0
 application/sdp, "base64", "sdp"
+application/secevent+jwt, "base64", 0
+application/senml+cbor, "base64", 0
+application/senml+json, "base64", 0
+application/senml+xml, "base64", 0
+application/senml-etch+cbor, "base64", 0
+application/senml-etch+json, "base64", 0
+application/senml-exi, "base64", 0
+application/sensml+cbor, "base64", 0
+application/sensml+json, "base64", 0
+application/sensml+xml, "base64", 0
+application/sensml-exi, "base64", 0
 application/sep+xml, "base64", 0
 application/sep-exi, "base64", 0
+application/sereal, "base64", "srl"
 application/session-info, "base64", 0
 application/set, "base64", 0
 application/set-payment, "base64", 0
@@ -328,27 +562,41 @@ application/sgml, "base64", "sgml"
 application/sgml-open-catalog, "base64", "soc"
 application/shf+xml, "base64", "shf"
 application/sieve, "base64", "siv"
+application/signed-exchange, "base64", 0
 application/simple-filter+xml, "base64", 0
 application/simple-message-summary, "base64", 0
 application/simpleSymbolContainer, "base64", 0
-application/SLA, "base64", 0
+application/sipc, "base64", 0
 application/slate, "base64", 0
+application/sldworks, "base64", "sldprt sldasm slddrw"
 application/smil, "8bit", "smi smil"
-application/smil+xml, "8bit", "smi smil"
+application/smil+xml, "8bit", "smi smil sml"
 application/smpte336m, "base64", 0
 application/soap+fastinfoset, "base64", 0
 application/soap+xml, "base64", 0
 application/solids, "base64", 0
 application/sparql-query, "base64", "rq"
 application/sparql-results+xml, "base64", "srx"
+application/spdx+json, "base64", 0
+application/spdx3+json, "base64", 0
+application/speculationrules+json, "8bit", 0
 application/spirits-event+xml, "base64", 0
 application/sql, "base64", 0
 application/srgs, "base64", "gram"
 application/srgs+xml, "base64", "grxml"
 application/sru+xml, "base64", "sru"
 application/ssdl+xml, "base64", "ssdl"
+application/sslkeylogfile, "base64", 0
 application/ssml+xml, "base64", "ssml"
-application/STEP, "base64", 0
+application/statuslist+cwt, "base64", 0
+application/statuslist+jwt, "base64", 0
+application/stix+json, "base64", 0
+application/stratum, "base64", 0
+application/suit-envelope+cose, "base64", 0
+application/suit-report+cose, "base64", 0
+application/swid+cbor, "base64", 0
+application/swid+xml, "base64", 0
+application/syslog-msg, "base64", 0
 application/tamp-apex-update, "base64", 0
 application/tamp-apex-update-confirm, "base64", 0
 application/tamp-community-update, "base64", 0
@@ -360,98 +608,275 @@ application/tamp-status-query, "base64", 0
 application/tamp-status-response, "base64", 0
 application/tamp-update, "base64", 0
 application/tamp-update-confirm, "base64", 0
+application/taxii+json, "base64", 0
+application/td+json, "base64", 0
+application/teep+cbor, "base64", 0
 application/tei+xml, "base64", "tei teicorpus"
+application/texinfo, "base64", 0
 application/thraud+xml, "base64", "tfi"
 application/timestamp-query, "base64", 0
 application/timestamp-reply, "base64", 0
 application/timestamped-data, "base64", "tsd"
+application/tlsrpt+gzip, "base64", 0
+application/tlsrpt+json, "base64", 0
+application/tm+json, "base64", 0
+application/tnauthlist, "base64", 0
+application/toc+cbor, "base64", 0
+application/token-introspection+jwt, "base64", 0
+application/toml, "base64", 0
 application/toolbook, "base64", "tbk"
-application/ttml+xml, "base64", 0
+application/trickle-ice-sdpfrag, "base64", 0
+application/trig, "base64", 0
+application/trust-chain+json, "base64", 0
+application/trust-mark+jwt, "base64", 0
+application/trust-mark-delegation+jwt, "base64", 0
+application/trust-mark-status-response+jwt, "base64", 0
+application/ttml+xml, "base64", "ttml"
 application/tve-trigger, "base64", 0
+application/tzif, "base64", 0
+application/tzif-leap, "base64", 0
+application/uccs+cbor, "base64", 0
+application/ujcs+json, "base64", 0
 application/ulpfec, "base64", 0
 application/urc-grpsheet+xml, "base64", 0
 application/urc-ressheet+xml, "base64", 0
 application/urc-targetdesc+xml, "base64", 0
 application/urc-uisocketdesc+xml, "base64", 0
+application/v3c, "base64", 0
+application/vc, "base64", 0
+application/vc+cose, "base64", 0
+application/vc+jwt, "base64", 0
+application/vc+sd-jwt, "base64", 0
 application/vcard+json, "base64", 0
 application/vcard+xml, "base64", 0
 application/vda, "base64", 0
+application/vec+xml, "base64", 0
+application/vec-package, "base64", 0
+application/vec-package+gzip, "base64", 0
+application/vec-package+zip, "base64", 0
 application/vemmi, "base64", 0
-application/VMSBACKUP, "base64", "bck"
+application/vividence.scriptfile, "base64", 0
+application/vnd.1000minds.decision-model+xml, "base64", 0
+application/vnd.1ob, "base64", 0
+application/vnd.3M.Post-it-Notes, "base64", "pwn"
 application/vnd.3gpp-prose+xml, "base64", 0
+application/vnd.3gpp-prose-pc3a+xml, "base64", 0
+application/vnd.3gpp-prose-pc3ach+xml, "base64", 0
 application/vnd.3gpp-prose-pc3ch+xml, "base64", 0
+application/vnd.3gpp-prose-pc8+xml, "base64", 0
+application/vnd.3gpp-v2x-local-service-information, "base64", 0
+application/vnd.3gpp.5gnas, "base64", 0
+application/vnd.3gpp.5gsa2x, "base64", 0
+application/vnd.3gpp.5gsa2x-local-service-information, "base64", 0
+application/vnd.3gpp.5gsv2x, "base64", 0
+application/vnd.3gpp.5gsv2x-local-service-information, "base64", 0
+application/vnd.3gpp.GMOP+xml, "base64", 0
+application/vnd.3gpp.SRVCC-info+xml, "base64", 0
 application/vnd.3gpp.access-transfer-events+xml, "base64", 0
 application/vnd.3gpp.bsf+xml, "base64", 0
+application/vnd.3gpp.crs+xml, "base64", 0
+application/vnd.3gpp.current-location-discovery+xml, "base64", 0
+application/vnd.3gpp.gtpc, "base64", 0
+application/vnd.3gpp.interworking-data, "base64", 0
+application/vnd.3gpp.lpp, "base64", 0
+application/vnd.3gpp.mc-signalling-ear, "base64", 0
+application/vnd.3gpp.mcdata-affiliation-command+xml, "base64", 0
+application/vnd.3gpp.mcdata-info+xml, "base64", 0
+application/vnd.3gpp.mcdata-msgstore-ctrl-request+xml, "base64", 0
+application/vnd.3gpp.mcdata-payload, "base64", 0
+application/vnd.3gpp.mcdata-regroup+xml, "base64", 0
+application/vnd.3gpp.mcdata-service-config+xml, "base64", 0
+application/vnd.3gpp.mcdata-signalling, "base64", 0
+application/vnd.3gpp.mcdata-ue-config+xml, "base64", 0
+application/vnd.3gpp.mcdata-user-profile+xml, "base64", 0
+application/vnd.3gpp.mcptt-affiliation-command+xml, "base64", 0
+application/vnd.3gpp.mcptt-floor-request+xml, "base64", 0
+application/vnd.3gpp.mcptt-info+xml, "base64", 0
+application/vnd.3gpp.mcptt-location-info+xml, "base64", 0
+application/vnd.3gpp.mcptt-mbms-usage-info+xml, "base64", 0
+application/vnd.3gpp.mcptt-regroup+xml, "base64", 0
+application/vnd.3gpp.mcptt-service-config+xml, "base64", 0
+application/vnd.3gpp.mcptt-signed+xml, "base64", 0
+application/vnd.3gpp.mcptt-ue-config+xml, "base64", 0
+application/vnd.3gpp.mcptt-ue-init-config+xml, "base64", 0
+application/vnd.3gpp.mcptt-user-profile+xml, "base64", 0
+application/vnd.3gpp.mcs-location-user-config+xml, "base64", 0
+application/vnd.3gpp.mcvideo-affiliation-command+xml, "base64", 0
+application/vnd.3gpp.mcvideo-affiliation-info+xml, "base64", 0
+application/vnd.3gpp.mcvideo-info+xml, "base64", 0
+application/vnd.3gpp.mcvideo-location-info+xml, "base64", 0
+application/vnd.3gpp.mcvideo-mbms-usage-info+xml, "base64", 0
+application/vnd.3gpp.mcvideo-regroup+xml, "base64", 0
+application/vnd.3gpp.mcvideo-service-config+xml, "base64", 0
+application/vnd.3gpp.mcvideo-transmission-request+xml, "base64", 0
+application/vnd.3gpp.mcvideo-ue-config+xml, "base64", 0
+application/vnd.3gpp.mcvideo-user-profile+xml, "base64", 0
 application/vnd.3gpp.mid-call+xml, "base64", 0
+application/vnd.3gpp.ngap, "base64", 0
+application/vnd.3gpp.pfcp, "base64", 0
 application/vnd.3gpp.pic-bw-large, "base64", "plb"
 application/vnd.3gpp.pic-bw-small, "base64", "psb"
 application/vnd.3gpp.pic-bw-var, "base64", "pvb"
+application/vnd.3gpp.pinapp-info+xml, "base64", 0
+application/vnd.3gpp.s1ap, "base64", 0
+application/vnd.3gpp.seal-app-comm-requirements-info+xml, "base64", 0
+application/vnd.3gpp.seal-data-delivery-info+cbor, "base64", 0
+application/vnd.3gpp.seal-data-delivery-info+xml, "base64", 0
+application/vnd.3gpp.seal-group-doc+xml, "base64", 0
+application/vnd.3gpp.seal-info+xml, "base64", 0
+application/vnd.3gpp.seal-location-info+cbor, "base64", 0
+application/vnd.3gpp.seal-location-info+xml, "base64", 0
+application/vnd.3gpp.seal-mbms-usage-info+xml, "base64", 0
+application/vnd.3gpp.seal-mbs-usage-info+xml, "base64", 0
+application/vnd.3gpp.seal-network-QoS-management-info+xml, "base64", 0
+application/vnd.3gpp.seal-network-resource-info+cbor, "base64", 0
+application/vnd.3gpp.seal-ue-config-info+xml, "base64", 0
+application/vnd.3gpp.seal-unicast-info+xml, "base64", 0
+application/vnd.3gpp.seal-user-profile-info+xml, "base64", 0
 application/vnd.3gpp.sms, "base64", "sms"
 application/vnd.3gpp.sms+xml, "base64", 0
 application/vnd.3gpp.srvcc-ext+xml, "base64", 0
-application/vnd.3gpp.SRVCC-info+xml, "base64", 0
 application/vnd.3gpp.state-and-event-info+xml, "base64", 0
 application/vnd.3gpp.ussd+xml, "base64", 0
+application/vnd.3gpp.v2x, "base64", 0
+application/vnd.3gpp.vae-info+xml, "base64", 0
 application/vnd.3gpp2.bcmcsinfo+xml, "base64", 0
 application/vnd.3gpp2.sms, "base64", 0
 application/vnd.3gpp2.tcap, "base64", "tcap"
 application/vnd.3lightssoftware.imagescal, "base64", 0
-application/vnd.3M.Post-it-Notes, "base64", "pwn"
+application/vnd.FloGraphIt, "base64", "gph"
+application/vnd.HandHeld-Entertainment+xml, "base64", "zmm"
+application/vnd.Kinar, "base64", "kne knp sdf"
+application/vnd.MFER, "base64", "mwf"
+application/vnd.Mobius.DAF, "base64", "daf"
+application/vnd.Mobius.DIS, "base64", "dis"
+application/vnd.Mobius.MBK, "base64", "mbk"
+application/vnd.Mobius.MQY, "base64", "mqy"
+application/vnd.Mobius.MSL, "base64", "msl"
+application/vnd.Mobius.PLC, "base64", "plc"
+application/vnd.Mobius.TXF, "base64", "txf"
+application/vnd.Quark.QuarkXPress, "8bit", "qxd qxt qwd qwt qxl qxb"
+application/vnd.R74n.sandboxels+json, "base64", 0
+application/vnd.RenLearn.rlprint, "base64", 0
+application/vnd.SimTech-MindMapper, "base64", "twd twds"
+application/vnd.abdalsecuritygroup.lockbox, "base64", 0
 application/vnd.accpac.simply.aso, "base64", "aso"
 application/vnd.accpac.simply.imp, "base64", "imp"
+application/vnd.acm.addressxfer+json, "base64", 0
+application/vnd.acm.chatbot+json, "base64", 0
 application/vnd.acucobol, "base64", "acu"
 application/vnd.acucorp, "7bit", "atc acutc"
+application/vnd.adobe.aftereffects.project, "base64", "aep"
+application/vnd.adobe.aftereffects.template, "base64", "aet"
 application/vnd.adobe.air-application-installer-package+zip, "base64", "air"
 application/vnd.adobe.flash.movie, "base64", 0
 application/vnd.adobe.formscentral.fcdt, "base64", "fcdt"
 application/vnd.adobe.fxp, "base64", "fxp fxpl"
+application/vnd.adobe.indesign-idml-package, "base64", "idml"
 application/vnd.adobe.partial-upload, "base64", 0
 application/vnd.adobe.xdp+xml, "base64", "xdp"
 application/vnd.adobe.xfdf, "base64", "xfdf"
 application/vnd.aether.imp, "base64", 0
+application/vnd.afpc.afplinedata, "base64", 0
+application/vnd.afpc.afplinedata-pagedef, "base64", 0
+application/vnd.afpc.cmoca-cmresource, "base64", 0
+application/vnd.afpc.foca-charset, "base64", 0
+application/vnd.afpc.foca-codedfont, "base64", 0
+application/vnd.afpc.foca-codepage, "base64", 0
+application/vnd.afpc.modca, "base64", 0
+application/vnd.afpc.modca-cmtable, "base64", 0
+application/vnd.afpc.modca-formdef, "base64", 0
+application/vnd.afpc.modca-mediummap, "base64", 0
+application/vnd.afpc.modca-objectcontainer, "base64", 0
+application/vnd.afpc.modca-overlay, "base64", 0
+application/vnd.afpc.modca-pagesegment, "base64", 0
+application/vnd.age, "base64", 0
+application/vnd.agtp.identity+json, "base64", 0
+application/vnd.agtp.identity+yaml, "base64", 0
 application/vnd.ah-barcode, "base64", 0
 application/vnd.ahead.space, "base64", "ahead"
+application/vnd.aia, "base64", 0
 application/vnd.airzip.filesecure.azf, "base64", "azf"
 application/vnd.airzip.filesecure.azs, "base64", "azs"
+application/vnd.amadeus+json, "base64", 0
 application/vnd.amazon.ebook, "base64", "azw"
+application/vnd.amazon.mobi8-ebook, "base64", 0
 application/vnd.americandynamics.acc, "base64", "acc"
 application/vnd.amiga.ami, "base64", "ami"
 application/vnd.amundsen.maze+xml, "base64", 0
+application/vnd.android.axml, "base64", 0
+application/vnd.android.ota, "base64", 0
 application/vnd.android.package-archive, "base64", "apk"
 application/vnd.anki, "base64", 0
 application/vnd.anser-web-certificate-issue-initiation, "base64", "cii"
 application/vnd.anser-web-funds-transfer-initiation, "base64", "fti"
 application/vnd.antix.game-component, "base64", "atx"
+application/vnd.apache.arrow.file, "base64", 0
+application/vnd.apache.arrow.stream, "base64", 0
+application/vnd.apache.parquet, "base64", "parquet"
 application/vnd.apache.thrift.binary, "base64", 0
 application/vnd.apache.thrift.compact, "base64", 0
 application/vnd.apache.thrift.json, "base64", 0
+application/vnd.apexlang, "base64", 0
 application/vnd.api+json, "base64", 0
+application/vnd.aplextor.warrp+json, "base64", 0
+application/vnd.apothekende.reservation+json, "base64", 0
 application/vnd.apple.installer+xml, "base64", "mpkg"
+application/vnd.apple.iwork, "base64", 0
+application/vnd.apple.keynote, "base64", "key"
 application/vnd.apple.mpegurl, "base64", "m3u8"
+application/vnd.apple.numbers, "base64", "numbers"
+application/vnd.apple.pages, "base64", "pages"
 application/vnd.apple.pkpass, "base64", "pkpass"
-application/vnd.arastra.swi, "base64", 0
+application/vnd.apple.steering-list, "base64", 0
+application/vnd.apple.unknown.13, "base64", 0
+application/vnd.arastra.swi, "base64", "swi"
 application/vnd.aristanetworks.swi, "base64", "swi"
+application/vnd.artisan+json, "base64", 0
 application/vnd.artsquare, "base64", 0
+application/vnd.as207960.vas.config+jer, "base64", 0
+application/vnd.as207960.vas.config+uper, "base64", 0
+application/vnd.as207960.vas.tap+jer, "base64", 0
+application/vnd.as207960.vas.tap+uper, "base64", 0
 application/vnd.astraea-software.iota, "base64", "iota"
 application/vnd.audiograph, "base64", "aep"
+application/vnd.aumtrix.aum, "base64", 0
 application/vnd.autopackage, "base64", 0
+application/vnd.avalon+json, "base64", 0
 application/vnd.avistar+xml, "base64", 0
 application/vnd.balsamiq.bmml+xml, "base64", 0
 application/vnd.balsamiq.bmpr, "base64", 0
+application/vnd.banana-accounting, "base64", 0
+application/vnd.bbf.usp.error, "base64", 0
+application/vnd.bbf.usp.msg, "base64", 0
+application/vnd.bbf.usp.msg+json, "base64", 0
 application/vnd.bekitzur-stech+json, "base64", 0
+application/vnd.belightsoft.lhzd+zip, "base64", 0
+application/vnd.belightsoft.lhzl+zip, "base64", 0
+application/vnd.bint.med-content, "base64", 0
 application/vnd.biopax.rdf+xml, "base64", 0
+application/vnd.blink-idb-value-wrapper, "base64", 0
 application/vnd.blueice.multipass, "base64", "mpm"
 application/vnd.bluetooth.ep.oob, "base64", 0
 application/vnd.bluetooth.le.oob, "base64", 0
 application/vnd.bmi, "base64", "bmi"
+application/vnd.bpf, "base64", 0
+application/vnd.bpf3, "base64", 0
 application/vnd.businessobjects, "base64", "rep"
+application/vnd.byu.uapi+json, "base64", 0
+application/vnd.bzip3, "base64", 0
+application/vnd.c3voc.schedule+xml, "base64", 0
 application/vnd.cab-jscript, "base64", 0
 application/vnd.canon-cpdl, "base64", 0
 application/vnd.canon-lips, "base64", 0
+application/vnd.capasystems-pg+json, "base64", 0
+application/vnd.cel, "base64", 0
 application/vnd.cendio.thinlinc.clientconf, "base64", 0
 application/vnd.century-systems.tcp_stream, "base64", 0
 application/vnd.chemdraw+xml, "base64", "cdxml"
+application/vnd.chess-pgn, "base64", 0
 application/vnd.chipnuts.karaoke-mmd, "base64", "mmd"
+application/vnd.ciedi, "base64", 0
 application/vnd.cinderella, "base64", "cdy"
 application/vnd.cirpack.isdn-ext, "base64", 0
 application/vnd.citationstyles.style+xml, "base64", 0
@@ -460,10 +885,24 @@ application/vnd.cloanto.rp9, "base64", "rp9"
 application/vnd.clonk.c4group, "base64", "c4d c4f c4g c4p c4u"
 application/vnd.cluetrust.cartomobile-config, "base64", "c11amc"
 application/vnd.cluetrust.cartomobile-config-pkg, "base64", "c11amz"
+application/vnd.cmmf-configuration-information+json, "base64", 0
+application/vnd.cmmf-efd+xml, "base64", 0
+application/vnd.cmmf-encoder-configuration+json, "base64", 0
+application/vnd.cncf.helm.chart.content.v1.tar+gzip, "base64", 0
+application/vnd.cncf.helm.chart.provenance.v1.prov, "base64", 0
+application/vnd.cncf.helm.config.v1+json, "base64", 0
 application/vnd.coffeescript, "base64", 0
+application/vnd.collabio.xodocuments.document, "base64", 0
+application/vnd.collabio.xodocuments.document-template, "base64", 0
+application/vnd.collabio.xodocuments.presentation, "base64", 0
+application/vnd.collabio.xodocuments.presentation-template, "base64", 0
+application/vnd.collabio.xodocuments.spreadsheet, "base64", 0
+application/vnd.collabio.xodocuments.spreadsheet-template, "base64", 0
 application/vnd.collection+json, "base64", 0
 application/vnd.collection.doc+json, "base64", 0
 application/vnd.collection.next+json, "base64", 0
+application/vnd.comicbook+zip, "base64", 0
+application/vnd.comicbook-rar, "base64", 0
 application/vnd.commerce-battelle, "base64", 0
 application/vnd.commonspace, "base64", "csp"
 application/vnd.contact.cmsg, "base64", "cdbcmsg"
@@ -475,6 +914,10 @@ application/vnd.crick.clicker.palette, "base64", "clkp"
 application/vnd.crick.clicker.template, "base64", "clkt"
 application/vnd.crick.clicker.wordbank, "base64", "clkw"
 application/vnd.criticaltools.wbs+xml, "base64", "wbs"
+application/vnd.cryptii.pipe+json, "base64", 0
+application/vnd.crypto-shade-file, "base64", 0
+application/vnd.cryptomator.encrypted, "base64", 0
+application/vnd.cryptomator.vault, "base64", 0
 application/vnd.ctc-posml, "base64", "pml"
 application/vnd.ctct.ws+xml, "base64", 0
 application/vnd.cups-pdf, "base64", 0
@@ -487,8 +930,18 @@ application/vnd.curl.car, "base64", "car"
 application/vnd.curl.pcurl, "base64", "pcurl"
 application/vnd.cyan.dean.root+xml, "base64", 0
 application/vnd.cybank, "base64", 0
+application/vnd.cyclonedx+json, "base64", 0
+application/vnd.cyclonedx+xml, "base64", 0
+application/vnd.d2l.coursepackage1p0+zip, "base64", 0
+application/vnd.d3m-dataset, "base64", 0
+application/vnd.d3m-problem, "base64", 0
 application/vnd.dart, "base64", "dart"
 application/vnd.data-vision.rdz, "base64", "rdz"
+application/vnd.datalog, "base64", 0
+application/vnd.datapackage+json, "base64", 0
+application/vnd.dataresource+json, "base64", 0
+application/vnd.dbf, "base64", 0
+application/vnd.dcmp+xml, "base64", 0
 application/vnd.debian.binary-package, "base64", 0
 application/vnd.dece.data, "base64", "uvd uvf uvvd uvvf"
 application/vnd.dece.ttml+xml, "base64", "uvt uvvt"
@@ -496,6 +949,9 @@ application/vnd.dece.unspecified, "base64", "uvvx uvx"
 application/vnd.dece.zip, "base64", "uvvz uvz"
 application/vnd.denovo.fcselayout-link, "base64", "fe_launch"
 application/vnd.desmume.movie, "base64", 0
+application/vnd.deut+json, "base64", 0
+application/vnd.digilite.prolights, "base64", 0
+application/vnd.digitalstack.document+zip, "base64", 0
 application/vnd.dir-bi.plate-dl-nosuffix, "base64", 0
 application/vnd.dm.delegation+xml, "base64", 0
 application/vnd.dna, "base64", "dna"
@@ -512,6 +968,7 @@ application/vnd.dtg.local, "base64", 0
 application/vnd.dtg.local.flash, "base64", 0
 application/vnd.dtg.local.html, "base64", 0
 application/vnd.dvb.ait, "base64", "ait"
+application/vnd.dvb.dvbisl+xml, "base64", 0
 application/vnd.dvb.dvbj, "base64", 0
 application/vnd.dvb.esgcontainer, "base64", 0
 application/vnd.dvb.ipdcdftnotifaccess, "base64", 0
@@ -535,12 +992,18 @@ application/vnd.dynageo, "base64", "geo"
 application/vnd.dzr, "base64", 0
 application/vnd.easykaraoke.cdgdownload, "base64", 0
 application/vnd.ecdis-update, "base64", 0
+application/vnd.ecip.rlp, "base64", 0
+application/vnd.eclipse.ditto+json, "base64", 0
 application/vnd.ecowin.chart, "base64", "mag"
 application/vnd.ecowin.filerequest, "base64", 0
 application/vnd.ecowin.fileupdate, "base64", 0
 application/vnd.ecowin.series, "base64", 0
 application/vnd.ecowin.seriesrequest, "base64", 0
 application/vnd.ecowin.seriesupdate, "base64", 0
+application/vnd.edulith.edux+json, "base64", 0
+application/vnd.efi.img, "base64", 0
+application/vnd.efi.iso, "base64", 0
+application/vnd.eln+zip, "base64", 0
 application/vnd.emclient.accessrequest+xml, "base64", 0
 application/vnd.enliven, "base64", "nml"
 application/vnd.enphase.envoy, "base64", 0
@@ -551,10 +1014,12 @@ application/vnd.epson.quickanime, "base64", "qam"
 application/vnd.epson.salt, "base64", "slt"
 application/vnd.epson.ssf, "base64", "ssf"
 application/vnd.ericsson.quickcall, "base64", 0
+application/vnd.erofs, "base64", 0
+application/vnd.espass-espass+zip, "base64", 0
 application/vnd.eszigno3+xml, "base64", "es3 et3"
 application/vnd.etsi.aoc+xml, "base64", 0
-application/vnd.etsi.asic-e+zip, "base64", 0
-application/vnd.etsi.asic-s+zip, "base64", 0
+application/vnd.etsi.asic-e+zip, "base64", "asice"
+application/vnd.etsi.asic-s+zip, "base64", "asics"
 application/vnd.etsi.cug+xml, "base64", 0
 application/vnd.etsi.iptvcommand+xml, "base64", 0
 application/vnd.etsi.iptvdiscovery+xml, "base64", 0
@@ -574,25 +1039,43 @@ application/vnd.etsi.simservs+xml, "base64", 0
 application/vnd.etsi.timestamp-token, "base64", 0
 application/vnd.etsi.tsl+xml, "base64", 0
 application/vnd.etsi.tsl.der, "base64", 0
+application/vnd.eu.kasparian.car+json, "base64", 0
 application/vnd.eudora.data, "base64", 0
+application/vnd.evolv.ecig.profile, "base64", 0
+application/vnd.evolv.ecig.settings, "base64", 0
+application/vnd.evolv.ecig.theme, "base64", 0
+application/vnd.exstream-empower+zip, "base64", 0
+application/vnd.exstream-package, "base64", 0
 application/vnd.ezpix-album, "base64", "ez2"
 application/vnd.ezpix-package, "base64", "ez3"
 application/vnd.f-secure.mobile, "base64", 0
+application/vnd.faf+yaml, "base64", 0
+application/vnd.fafa+yaml, "base64", 0
+application/vnd.fafm+yaml, "base64", 0
+application/vnd.familysearch.gedcom+zip, "base64", 0
 application/vnd.fastcopy-disk-image, "base64", 0
 application/vnd.fdf, "base64", "fdf"
 application/vnd.fdsn.mseed, "base64", "mseed"
 application/vnd.fdsn.seed, "base64", "dataless seed"
+application/vnd.fdsn.stationxml+xml, "base64", 0
 application/vnd.ffsns, "base64", 0
+application/vnd.fgb, "base64", 0
+application/vnd.ficlab.flb+zip, "base64", 0
 application/vnd.filmit.zfc, "base64", 0
 application/vnd.fints, "base64", 0
 application/vnd.firemonkeys.cloudcell, "base64", 0
-application/vnd.FloGraphIt, "base64", "gph"
 application/vnd.fluxtime.clip, "base64", "ftc"
 application/vnd.font-fontforge-sfd, "base64", 0
+application/vnd.foritech.container, "base64", 0
 application/vnd.framemaker, "base64", "frm maker frame fm fb book fbdoc"
+application/vnd.freelog.comic, "base64", 0
 application/vnd.frogans.fnc, "base64", "fnc"
 application/vnd.frogans.ltf, "base64", "ltf"
 application/vnd.fsc.weblaunch, "7bit", "fsc"
+application/vnd.fujifilm.fb.docuworks, "base64", 0
+application/vnd.fujifilm.fb.docuworks.binder, "base64", 0
+application/vnd.fujifilm.fb.docuworks.container, "base64", 0
+application/vnd.fujifilm.fb.jfi+xml, "base64", 0
 application/vnd.fujitsu.oasys, "base64", "oas"
 application/vnd.fujitsu.oasys2, "base64", "oa2"
 application/vnd.fujitsu.oasys3, "base64", "oa3"
@@ -600,17 +1083,32 @@ application/vnd.fujitsu.oasysgp, "base64", "fg5"
 application/vnd.fujitsu.oasysprs, "base64", "bh2"
 application/vnd.fujixerox.ART-EX, "base64", 0
 application/vnd.fujixerox.ART4, "base64", 0
+application/vnd.fujixerox.HBPL, "base64", 0
 application/vnd.fujixerox.ddd, "base64", "ddd"
 application/vnd.fujixerox.docuworks, "base64", "xdw"
 application/vnd.fujixerox.docuworks.binder, "base64", "xbd"
 application/vnd.fujixerox.docuworks.container, "base64", 0
-application/vnd.fujixerox.HBPL, "base64", 0
 application/vnd.fut-misnet, "base64", 0
+application/vnd.futoin+cbor, "base64", 0
+application/vnd.futoin+json, "base64", 0
 application/vnd.fuzzysheet, "base64", "fzs"
+application/vnd.g3pix.g3fc, "base64", 0
+application/vnd.ga4gh.passport+jwt, "base64", 0
 application/vnd.genomatix.tuxedo, "base64", "txd"
+application/vnd.genozip, "base64", 0
+application/vnd.gentics.grd+json, "base64", 0
+application/vnd.gentoo.catmetadata+xml, "base64", 0
+application/vnd.gentoo.ebuild, "base64", 0
+application/vnd.gentoo.eclass, "base64", 0
+application/vnd.gentoo.gpkg, "base64", 0
+application/vnd.gentoo.manifest, "base64", 0
+application/vnd.gentoo.pkgmetadata+xml, "base64", 0
+application/vnd.gentoo.xpak, "base64", 0
 application/vnd.geo+json, "base64", 0
 application/vnd.geocube+xml, "8bit", 0
 application/vnd.geogebra.file, "base64", "ggb"
+application/vnd.geogebra.pinboard, "base64", 0
+application/vnd.geogebra.slides, "base64", "ggs"
 application/vnd.geogebra.tool, "base64", "ggt"
 application/vnd.geometry-explorer, "base64", "gex gre"
 application/vnd.geonext, "base64", "gxt"
@@ -620,11 +1118,15 @@ application/vnd.gerber, "base64", 0
 application/vnd.globalplatform.card-content-mgt, "base64", 0
 application/vnd.globalplatform.card-content-mgt-response, "base64", 0
 application/vnd.gmx, "base64", "gmx"
+application/vnd.gnu.taler.exchange+json, "base64", 0
+application/vnd.gnu.taler.merchant+json, "base64", 0
 application/vnd.google-earth.kml+xml, "8bit", "kml"
 application/vnd.google-earth.kmz, "8bit", "kmz"
 application/vnd.gov.sk.e-form+xml, "base64", 0
 application/vnd.gov.sk.e-form+zip, "base64", 0
 application/vnd.gov.sk.xmldatacontainer+xml, "base64", 0
+application/vnd.gp3, "base64", 0
+application/vnd.gpxsee.map+xml, "base64", 0
 application/vnd.grafeq, "base64", "gqf gqs"
 application/vnd.gridmp, "base64", 0
 application/vnd.groove-account, "base64", "gac"
@@ -636,31 +1138,40 @@ application/vnd.groove-tool-template, "base64", "tpl"
 application/vnd.groove-vcard, "base64", "vcg"
 application/vnd.hal+json, "base64", 0
 application/vnd.hal+xml, "base64", "hal"
-application/vnd.HandHeld-Entertainment+xml, "base64", "zmm"
 application/vnd.hbci, "base64", "hbci hbc kom upa pkd bpd"
+application/vnd.hc+json, "base64", 0
 application/vnd.hcl-bireports, "base64", 0
+application/vnd.hdfgroup.hdf4, "base64", 0
+application/vnd.hdfgroup.hdf5, "base64", 0
 application/vnd.hdt, "base64", 0
 application/vnd.heroku+json, "base64", 0
 application/vnd.hhe.lesson-player, "base64", "les"
+application/vnd.hl7cda+xml, "base64", 0
+application/vnd.hl7v2+xml, "base64", 0
 application/vnd.hp-HPGL, "base64", "plt hpgl"
+application/vnd.hp-PCL, "base64", "pcl"
+application/vnd.hp-PCLXL, "base64", "pclxl"
 application/vnd.hp-hpid, "base64", "hpid"
 application/vnd.hp-hps, "base64", "hps"
 application/vnd.hp-jlyt, "base64", "jlt"
-application/vnd.hp-PCL, "base64", "pcl"
-application/vnd.hp-PCLXL, "base64", "pclxl"
+application/vnd.hsl, "base64", 0
 application/vnd.httphone, "base64", 0
 application/vnd.hydrostatix.sof-data, "base64", "sfd-hdstx"
+application/vnd.hyper+json, "base64", 0
+application/vnd.hyper-item+json, "base64", 0
 application/vnd.hyperdrive+json, "base64", 0
-application/vnd.hzn-3d-crossword, "base64", 0
+application/vnd.hzn-3d-crossword, "base64", "x3d"
+application/vnd.ibm.MiniPay, "base64", "mpy"
 application/vnd.ibm.afplinedata, "base64", 0
 application/vnd.ibm.electronic-media, "base64", "emm"
-application/vnd.ibm.MiniPay, "base64", "mpy"
 application/vnd.ibm.modcap, "base64", "afp list3820 listafp"
 application/vnd.ibm.rights-management, "base64", "irm"
 application/vnd.ibm.secure-container, "base64", "sc"
 application/vnd.iccprofile, "base64", "icc icm"
 application/vnd.ieee.1905, "base64", 0
 application/vnd.igloader, "base64", "igl"
+application/vnd.imagemeter.folder+zip, "base64", 0
+application/vnd.imagemeter.image+zip, "base64", 0
 application/vnd.immervision-ivp, "base64", "ivp"
 application/vnd.immervision-ivu, "base64", "ivu"
 application/vnd.ims.imsccv1p1, "base64", 0
@@ -684,17 +1195,23 @@ application/vnd.intertrust.digibox, "base64", 0
 application/vnd.intertrust.nncp, "base64", 0
 application/vnd.intu.qbo, "base64", "qbo"
 application/vnd.intu.qfx, "base64", "qfx"
+application/vnd.ipfs.ipns-record, "base64", 0
+application/vnd.ipld.car, "base64", 0
+application/vnd.ipld.dag-cbor, "base64", 0
+application/vnd.ipld.dag-json, "base64", 0
+application/vnd.ipld.raw, "base64", 0
 application/vnd.iptc.g2.catalogitem+xml, "base64", 0
 application/vnd.iptc.g2.conceptitem+xml, "base64", 0
 application/vnd.iptc.g2.knowledgeitem+xml, "base64", 0
 application/vnd.iptc.g2.newsitem+xml, "base64", 0
-application/vnd.iptc.g2.newsmessage+xml, "base64", 0
+application/vnd.iptc.g2.newsmessage+xml, "base64", "nar"
 application/vnd.iptc.g2.packageitem+xml, "base64", 0
 application/vnd.iptc.g2.planningitem+xml, "base64", 0
 application/vnd.ipunplugged.rcprofile, "base64", "rcprofile"
 application/vnd.irepository.package+xml, "base64", "irp"
 application/vnd.is-xpr, "base64", "xpr"
 application/vnd.isac.fcs, "base64", "fcs"
+application/vnd.iso11783-10+zip, "base64", 0
 application/vnd.jam, "base64", "jam"
 application/vnd.japannet-directory-service, "base64", 0
 application/vnd.japannet-jpnstore-wakeup, "base64", 0
@@ -704,6 +1221,8 @@ application/vnd.japannet-registration-wakeup, "base64", 0
 application/vnd.japannet-setstore-wakeup, "base64", 0
 application/vnd.japannet-verification, "base64", 0
 application/vnd.japannet-verification-wakeup, "base64", 0
+application/vnd.java.hprof , "base64", "hprof"
+application/vnd.java.hprof.text, "base64", "hprof.txt"
 application/vnd.jcp.javame.midlet-rms, "base64", "rms"
 application/vnd.jisp, "base64", "jisp"
 application/vnd.joost.joda-archive, "base64", "joda"
@@ -717,51 +1236,63 @@ application/vnd.kde.kontour, "base64", "kon"
 application/vnd.kde.kpresenter, "base64", "kpr kpt"
 application/vnd.kde.kspread, "base64", "ksp"
 application/vnd.kde.kword, "base64", "kwd kwt"
+application/vnd.kdl, "base64", 0
 application/vnd.kenameaapp, "base64", "htke"
+application/vnd.keyman.kmp+zip, "base64", 0
+application/vnd.keyman.kmx, "base64", 0
 application/vnd.kidspiration, "base64", "kia"
-application/vnd.Kinar, "base64", "kne knp sdf"
 application/vnd.koan, "base64", "skd skm skp skt"
 application/vnd.kodak-descriptor, "base64", "sse"
+application/vnd.las, "base64", 0
+application/vnd.las.las+json, "base64", 0
 application/vnd.las.las+xml, "base64", "lasxml"
+application/vnd.laszip, "base64", 0
+application/vnd.ldev.productlicensing, "base64", 0
+application/vnd.leap+json, "base64", 0
 application/vnd.liberty-request+xml, "base64", 0
 application/vnd.llamagraphics.life-balance.desktop, "base64", "lbd"
 application/vnd.llamagraphics.life-balance.exchange+xml, "base64", "lbe"
-application/vnd.lotus-1-2-3, "base64", "wks 123"
+application/vnd.logipipe.circuit+zip, "base64", 0
+application/vnd.loom, "base64", 0
+application/vnd.lotus-1-2-3, "base64", "wks 123 wk1 wk2 wk3 wk4"
 application/vnd.lotus-approach, "base64", "apr"
 application/vnd.lotus-freelance, "base64", "pre"
 application/vnd.lotus-notes, "base64", "nsf"
 application/vnd.lotus-organizer, "base64", "org"
 application/vnd.lotus-screencam, "base64", "scm"
 application/vnd.lotus-wordpro, "base64", "lwp"
+application/vnd.lukuid.package+zip, "base64", 0
 application/vnd.macports.portpkg, "base64", "portpkg"
+application/vnd.majikah.bundle, "base64", 0
+application/vnd.maml, "base64", 0
 application/vnd.mapbox-vector-tile, "base64", 0
 application/vnd.marlin.drm.actiontoken+xml, "base64", 0
 application/vnd.marlin.drm.conftoken+xml, "base64", 0
 application/vnd.marlin.drm.license+xml, "base64", 0
 application/vnd.marlin.drm.mdcf, "base64", 0
 application/vnd.mason+json, "base64", 0
+application/vnd.maxar.archive.3tz+zip, "base64", 0
 application/vnd.maxmind.maxmind-db, "base64", 0
 application/vnd.mcd, "base64", "mcd"
+application/vnd.mdl, "base64", 0
+application/vnd.mdl-mbsdf, "base64", 0
 application/vnd.medcalcdata, "base64", "mc1"
 application/vnd.mediastation.cdkey, "base64", "cdkey"
+application/vnd.medicalholodeck.recordxr, "base64", 0
 application/vnd.meridian-slingshot, "base64", 0
-application/vnd.MFER, "base64", "mwf"
+application/vnd.mermaid, "base64", 0
 application/vnd.mfmp, "base64", "mfm"
 application/vnd.micro+json, "base64", 0
 application/vnd.micrografx.flo, "base64", "flo"
 application/vnd.micrografx.igx, "base64", "igx"
 application/vnd.microsoft.portable-executable, "base64", 0
+application/vnd.microsoft.windows.thumbnail-cache, "base64", 0
 application/vnd.miele+json, "base64", 0
 application/vnd.mif, "base64", "mif"
+application/vnd.mindjet.mindmanager, "base64", "mmp mmap mmpt mmat mmmp mmas"
 application/vnd.minisoft-hp3000-save, "base64", 0
 application/vnd.mitsubishi.misty-guard.trustweb, "base64", 0
-application/vnd.Mobius.DAF, "base64", "daf"
-application/vnd.Mobius.DIS, "base64", "dis"
-application/vnd.Mobius.MBK, "base64", "mbk"
-application/vnd.Mobius.MQY, "base64", "mqy"
-application/vnd.Mobius.MSL, "base64", "msl"
-application/vnd.Mobius.PLC, "base64", "plc"
-application/vnd.Mobius.TXF, "base64", "txf"
+application/vnd.modl, "base64", 0
 application/vnd.mophun.application, "base64", "mpn"
 application/vnd.mophun.certificate, "base64", "mpc"
 application/vnd.motorola.flexsuite, "base64", 0
@@ -774,14 +1305,21 @@ application/vnd.motorola.flexsuite.wem, "base64", 0
 application/vnd.motorola.iprm, "base64", 0
 application/vnd.mozilla.xul+xml, "base64", "xul"
 application/vnd.ms-3mfdocument, "base64", 0
+application/vnd.ms-PrintDeviceCapabilities+xml, "base64", 0
+application/vnd.ms-PrintSchemaTicket+xml, "base64", 0
 application/vnd.ms-artgalry, "base64", "cil"
 application/vnd.ms-asf, "base64", "asf"
 application/vnd.ms-cab-compressed, "base64", "cab"
-application/vnd.ms-excel, "base64", "xls xlt xla xlc xlm xlw"
+application/vnd.ms-excel, "base64", "xls xlt xla xlc xlm xlw xll xld"
 application/vnd.ms-excel.addin.macroEnabled.12, "base64", "xlam"
+application/vnd.ms-excel.sheet.2, "base64", 0
+application/vnd.ms-excel.sheet.3, "base64", 0
+application/vnd.ms-excel.sheet.4, "base64", 0
 application/vnd.ms-excel.sheet.binary.macroEnabled.12, "base64", "xlsb"
 application/vnd.ms-excel.sheet.macroEnabled.12, "base64", "xlsm"
 application/vnd.ms-excel.template.macroEnabled.12, "base64", "xltm"
+application/vnd.ms-excel.workspace.3, "base64", 0
+application/vnd.ms-excel.workspace.4, "base64", 0
 application/vnd.ms-fontobject, "base64", "eot"
 application/vnd.ms-htmlhelp, "base64", "chm"
 application/vnd.ms-ims, "base64", "ims"
@@ -789,19 +1327,26 @@ application/vnd.ms-lrm, "base64", "lrm"
 application/vnd.ms-office.activeX+xml, "base64", 0
 application/vnd.ms-officetheme, "base64", "thmx"
 application/vnd.ms-outlook, "base64", "msg"
+application/vnd.ms-outlook-pst, "base64", "pst ost"
+application/vnd.ms-package.3dmanufacturing-3dmodel+xml, "base64", "3mf"
 application/vnd.ms-pki.seccat, "base64", "cat"
 application/vnd.ms-pki.stl, "base64", "stl"
 application/vnd.ms-playready.initiator+xml, "base64", 0
-application/vnd.ms-powerpoint, "base64", "ppt pps pot"
+application/vnd.ms-powerpoint, "base64", "ppt pps pot ppz ppa"
 application/vnd.ms-powerpoint.addin.macroEnabled.12, "base64", "ppam"
 application/vnd.ms-powerpoint.presentation.macroEnabled.12, "base64", "pptm"
 application/vnd.ms-powerpoint.slide.macroEnabled.12, "base64", "sldm"
 application/vnd.ms-powerpoint.slideshow.macroEnabled.12, "base64", "ppsm"
 application/vnd.ms-powerpoint.template.macroEnabled.12, "base64", "potm"
-application/vnd.ms-PrintDeviceCapabilities+xml, "base64", 0
-application/vnd.ms-PrintSchemaTicket+xml, "base64", 0
 application/vnd.ms-project, "base64", "mpp mpt"
+application/vnd.ms-spreadsheetml, "base64", 0
 application/vnd.ms-tnef, "base64", 0
+application/vnd.ms-visio.drawing, "base64", "vsdx"
+application/vnd.ms-visio.drawing.macroEnabled.12, "base64", "vsdm"
+application/vnd.ms-visio.stencil, "base64", "vssx"
+application/vnd.ms-visio.stencil.macroEnabled.12, "base64", "vssm"
+application/vnd.ms-visio.template, "base64", "vstx"
+application/vnd.ms-visio.template.macroEnabled.12, "base64", "vstm"
 application/vnd.ms-windows.devicepairing, "base64", 0
 application/vnd.ms-windows.nwprinting.oob, "base64", 0
 application/vnd.ms-windows.printerpairing, "base64", 0
@@ -812,11 +1357,14 @@ application/vnd.ms-wmdrm.meter-chlg-req, "base64", 0
 application/vnd.ms-wmdrm.meter-resp, "base64", 0
 application/vnd.ms-word.document.macroEnabled.12, "base64", "docm"
 application/vnd.ms-word.template.macroEnabled.12, "base64", "dotm"
+application/vnd.ms-word2006ml, "base64", 0
+application/vnd.ms-wordml, "base64", 0
 application/vnd.ms-works, "base64", "wcm wdb wks wps"
 application/vnd.ms-wpl, "base64", "wpl"
-application/vnd.ms-xpsdocument, "8bit", "xps"
-application/vnd.msa-disk-image, "base64", 0
+application/vnd.ms-xpsdocument, "8bit", "xps oxps"
+application/vnd.msa-disk-image, "base64", "msa"
 application/vnd.mseq, "base64", "mseq"
+application/vnd.msgpack, "base64", 0
 application/vnd.msign, "base64", 0
 application/vnd.multiad.creator, "base64", 0
 application/vnd.multiad.creator.cif, "base64", 0
@@ -824,11 +1372,20 @@ application/vnd.music-niff, "base64", 0
 application/vnd.musician, "base64", "mus"
 application/vnd.muvee.style, "base64", "msty"
 application/vnd.mynfc, "base64", "taglet"
+application/vnd.nacamar.ybrid+json, "base64", 0
+application/vnd.nato.bindingdataobject+cbor, "base64", 0
+application/vnd.nato.bindingdataobject+json, "base64", 0
+application/vnd.nato.bindingdataobject+xml, "base64", 0
+application/vnd.nato.openxmlformats-package.iepd+zip, "base64", 0
 application/vnd.ncd.control, "base64", 0
 application/vnd.ncd.reference, "base64", 0
+application/vnd.nearst.inv+json, "base64", 0
+application/vnd.nebumind.line, "base64", 0
 application/vnd.nervana, "base64", "ent entity req request bkm kcm"
 application/vnd.netfpx, "base64", 0
 application/vnd.neurolanguage.nlu, "base64", "nlu"
+application/vnd.nila.protobuf-bundle+zip, "base64", 0
+application/vnd.nimn, "base64", 0
 application/vnd.nintendo.nitro.rom, "base64", 0
 application/vnd.nintendo.snes.rom, "base64", 0
 application/vnd.nitf, "base64", "nitf ntf"
@@ -838,8 +1395,8 @@ application/vnd.noblenet-web, "base64", "nnw"
 application/vnd.nokia.catalogs, "base64", 0
 application/vnd.nokia.conml+wbxml, "base64", 0
 application/vnd.nokia.conml+xml, "base64", 0
-application/vnd.nokia.iptv.config+xml, "base64", 0
 application/vnd.nokia.iSDS-radio-presets, "base64", 0
+application/vnd.nokia.iptv.config+xml, "base64", 0
 application/vnd.nokia.landmark+wbxml, "base64", 0
 application/vnd.nokia.landmark+xml, "base64", 0
 application/vnd.nokia.landmarkcollection+xml, "base64", 0
@@ -860,9 +1417,17 @@ application/vnd.ntt-local.file-transfer, "base64", 0
 application/vnd.ntt-local.ogw_remote-access, "base64", 0
 application/vnd.ntt-local.sip-ta_remote, "base64", 0
 application/vnd.ntt-local.sip-ta_tcp_stream, "base64", 0
+application/vnd.nubaltec.nudoku-game, "base64", 0
+application/vnd.oai.workflows, "base64", 0
+application/vnd.oai.workflows+json, "base64", 0
+application/vnd.oai.workflows+yaml, "base64", 0
+application/vnd.oasis.opendocument.base, "base64", "odb"
 application/vnd.oasis.opendocument.chart, "base64", "odc"
 application/vnd.oasis.opendocument.chart-template, "base64", "odc otc"
 application/vnd.oasis.opendocument.database, "base64", "odb"
+application/vnd.oasis.opendocument.flat.presentation, "base64", "fodp"
+application/vnd.oasis.opendocument.flat.spreadsheet, "base64", "fods"
+application/vnd.oasis.opendocument.flat.text, "base64", "fodt"
 application/vnd.oasis.opendocument.formula, "base64", "odf"
 application/vnd.oasis.opendocument.formula-template, "base64", "odf odft"
 application/vnd.oasis.opendocument.graphics, "base64", "odg"
@@ -874,10 +1439,14 @@ application/vnd.oasis.opendocument.presentation-template, "base64", "otp"
 application/vnd.oasis.opendocument.spreadsheet, "base64", "ods"
 application/vnd.oasis.opendocument.spreadsheet-template, "base64", "ots"
 application/vnd.oasis.opendocument.text, "base64", "odt"
-application/vnd.oasis.opendocument.text-master, "base64", "odm"
+application/vnd.oasis.opendocument.text-master, "base64", "odm otm"
+application/vnd.oasis.opendocument.text-master-template, "base64", 0
 application/vnd.oasis.opendocument.text-template, "base64", "ott"
 application/vnd.oasis.opendocument.text-web, "base64", "oth"
+application/vnd.oasis.opendocument.tika.flat.document, "base64", 0
 application/vnd.obn, "base64", 0
+application/vnd.ocf+cbor, "base64", 0
+application/vnd.oci.image.manifest.v1+json, "base64", 0
 application/vnd.oftn.l10n+json, "base64", 0
 application/vnd.oipf.contentaccessdownload+xml, "base64", 0
 application/vnd.oipf.contentaccessstreaming+xml, "base64", 0
@@ -917,7 +1486,9 @@ application/vnd.oma.dcdc, "base64", 0
 application/vnd.oma.dd2+xml, "base64", "dd2"
 application/vnd.oma.drm.risd+xml, "base64", 0
 application/vnd.oma.group-usage-list+xml, "base64", 0
+application/vnd.oma.lwm2m+cbor, "base64", 0
 application/vnd.oma.lwm2m+json, "base64", 0
+application/vnd.oma.lwm2m+tlv, "base64", 0
 application/vnd.oma.pal+xml, "base64", 0
 application/vnd.oma.poc.detailed-progress-report+xml, "base64", 0
 application/vnd.oma.poc.final-report+xml, "base64", 0
@@ -931,11 +1502,23 @@ application/vnd.omads-email+xml, "base64", 0
 application/vnd.omads-file+xml, "base64", 0
 application/vnd.omads-folder+xml, "base64", 0
 application/vnd.omaloc-supl-init, "base64", 0
+application/vnd.oms.cellular-cose-content+cbor, "base64", 0
 application/vnd.onepager, "base64", 0
+application/vnd.onepagertamp, "base64", 0
+application/vnd.onepagertamx, "base64", 0
+application/vnd.onepagertat, "base64", 0
+application/vnd.onepagertatp, "base64", 0
+application/vnd.onepagertatx, "base64", 0
+application/vnd.onvif.metadata, "base64", 0
 application/vnd.openblox.game+xml, "base64", 0
 application/vnd.openblox.game-binary, "base64", 0
 application/vnd.openeye.oeb, "base64", 0
+application/vnd.openofficeorg.autotext, "base64", "bau"
 application/vnd.openofficeorg.extension, "base64", "oxt"
+application/vnd.openprinttag, "base64", 0
+application/vnd.openstreetmap.data+xml, "base64", 0
+application/vnd.opentimestamps.ots, "base64", 0
+application/vnd.openvpi.dspx+json, "base64", 0
 application/vnd.openxmlformats-officedocument.custom-properties+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.customXmlProperties+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.drawing+xml, "base64", 0
@@ -951,16 +1534,16 @@ application/vnd.openxmlformats-officedocument.presentationml.comments+xml, "base
 application/vnd.openxmlformats-officedocument.presentationml.handoutMaster+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml, "base64", 0
-application/vnd.openxmlformats-officedocument.presentationml.presentation, "base64", "pptx"
-application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.presProps+xml, "base64", 0
+application/vnd.openxmlformats-officedocument.presentationml.presentation, "base64", "pptx thmx"
+application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.slide, "base64", "sldx"
 application/vnd.openxmlformats-officedocument.presentationml.slide+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml, "base64", 0
+application/vnd.openxmlformats-officedocument.presentationml.slideUpdateInfo+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.slideshow, "base64", "ppsx"
 application/vnd.openxmlformats-officedocument.presentationml.slideshow.main+xml, "base64", 0
-application/vnd.openxmlformats-officedocument.presentationml.slideUpdateInfo+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.tableStyles+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.tags+xml, "base64", 0
 application/vnd.openxmlformats-officedocument.presentationml.template, "base64", "potx"
@@ -1023,13 +1606,18 @@ application/vnd.pagerduty+json, "base64", 0
 application/vnd.palm, "base64", "prc pdb pqa oprc"
 application/vnd.panoply, "base64", 0
 application/vnd.paos.xml, "base64", 0
+application/vnd.pasti-stx-disk-image, "base64", 0
+application/vnd.patentdive, "base64", 0
+application/vnd.patientecommsdoc, "base64", 0
 application/vnd.pawaafile, "base64", "paw"
 application/vnd.pcos, "base64", 0
 application/vnd.pg.format, "base64", "str"
 application/vnd.pg.osasli, "base64", "ei6"
+application/vnd.phbk+xml, "base64", 0
 application/vnd.piaccess.application-licence, "base64", 0
 application/vnd.picsel, "base64", "efif"
 application/vnd.pmi.widget, "base64", "wg"
+application/vnd.pmtiles, "base64", 0
 application/vnd.poc.group-advertisement+xml, "base64", 0
 application/vnd.pocketlearn, "base64", "plf"
 application/vnd.powerbuilder6, "base64", "pbd"
@@ -1038,16 +1626,20 @@ application/vnd.powerbuilder7, "base64", 0
 application/vnd.powerbuilder7-s, "base64", 0
 application/vnd.powerbuilder75, "base64", 0
 application/vnd.powerbuilder75-s, "base64", 0
+application/vnd.pp.systemverify+xml, "base64", 0
 application/vnd.preminet, "base64", 0
 application/vnd.previewsystems.box, "base64", "box"
+application/vnd.project-graph, "base64", 0
 application/vnd.proteus.magazine, "base64", "mgz"
+application/vnd.psfs, "base64", 0
+application/vnd.pt.mundusmundi, "base64", 0
 application/vnd.publishare-delta-tree, "base64", "qps"
 application/vnd.pvi.ptid1, "base64", "pti ptid"
 application/vnd.pwg-multiplexed, "base64", 0
 application/vnd.pwg-xhtml-print+xml, "base64", 0
+application/vnd.pyon+json, "base64", 0
 application/vnd.qualcomm.brew-app-res, "base64", 0
 application/vnd.quarantainenet, "base64", 0
-application/vnd.Quark.QuarkXPress, "8bit", "qxd qxt qwd qwt qxl qxb"
 application/vnd.quobject-quoxdocument, "base64", 0
 application/vnd.radisys.moml+xml, "base64", 0
 application/vnd.radisys.msml+xml, "base64", 0
@@ -1066,10 +1658,14 @@ application/vnd.radisys.msml-dialog-speech+xml, "base64", 0
 application/vnd.radisys.msml-dialog-transform+xml, "base64", 0
 application/vnd.rainstor.data, "base64", 0
 application/vnd.rapid, "base64", 0
+application/vnd.rar, "base64", 0
 application/vnd.realvnc.bed, "base64", "bed"
 application/vnd.recordare.musicxml, "base64", "mxl"
 application/vnd.recordare.musicxml+xml, "base64", "musicxml"
-application/vnd.RenLearn.rlprint, "base64", 0
+application/vnd.rego, "base64", 0
+application/vnd.relpipe, "base64", 0
+application/vnd.resilient.logic, "base64", 0
+application/vnd.restful+json, "base64", 0
 application/vnd.rig.cryptonote, "base64", "cryptonote"
 application/vnd.rim.cod, "base64", "cod"
 application/vnd.rn-realmedia, "base64", "rm"
@@ -1079,6 +1675,7 @@ application/vnd.rs-274x, "base64", 0
 application/vnd.ruckus.download, "base64", 0
 application/vnd.s3sms, "base64", 0
 application/vnd.sailingtracker.track, "base64", "st"
+application/vnd.sar, "base64", 0
 application/vnd.sbm.cid, "base64", 0
 application/vnd.sbm.mid2, "base64", 0
 application/vnd.scribus, "base64", 0
@@ -1094,23 +1691,36 @@ application/vnd.sealed.xls, "base64", "sxls sxl s1e"
 application/vnd.sealedmedia.softseal.html, "base64", "stml stm s1h"
 application/vnd.sealedmedia.softseal.pdf, "base64", "spdf spd s1a"
 application/vnd.seemail, "base64", "see"
+application/vnd.seis+json, "base64", 0
 application/vnd.sema, "base64", "sema"
 application/vnd.semd, "base64", "semd"
 application/vnd.semf, "base64", "semf"
+application/vnd.shade-save-file, "base64", 0
 application/vnd.shana.informed.formdata, "base64", "ifm"
 application/vnd.shana.informed.formtemplate, "base64", "itp"
 application/vnd.shana.informed.interchange, "base64", "iif"
 application/vnd.shana.informed.package, "base64", "ipk"
-application/vnd.SimTech-MindMapper, "base64", "twd twds"
+application/vnd.shootproof+json, "base64", 0
+application/vnd.shopkick+json, "base64", 0
+application/vnd.shp, "base64", 0
+application/vnd.shx, "base64", 0
+application/vnd.sigrok.session, "base64", 0
 application/vnd.siren+json, "base64", 0
+application/vnd.sirtx.vmv0, "base64", 0
+application/vnd.sketchometry, "base64", 0
 application/vnd.smaf, "base64", "mmf"
 application/vnd.smart.notebook, "base64", 0
 application/vnd.smart.teacher, "base64", "teacher"
+application/vnd.smintio.portals.archive, "base64", 0
+application/vnd.snesdev-page-table, "base64", 0
+application/vnd.softpres-ipf-disk-image, "base64", 0
 application/vnd.software602.filler.form+xml, "base64", 0
 application/vnd.software602.filler.form-xml-zip, "base64", 0
 application/vnd.solent.sdkm+xml, "base64", "sdkd sdkm"
 application/vnd.spotfire.dxp, "base64", "dxp"
 application/vnd.spotfire.sfs, "base64", "sfs"
+application/vnd.sqlite3, "base64", 0
+application/vnd.sri, "base64", 0
 application/vnd.sss-cod, "base64", 0
 application/vnd.sss-dtf, "base64", 0
 application/vnd.sss-ntf, "base64", 0
@@ -1135,9 +1745,15 @@ application/vnd.sun.xml.math, "base64", "sxm"
 application/vnd.sun.xml.writer, "base64", "sxw"
 application/vnd.sun.xml.writer.global, "base64", "sxg"
 application/vnd.sun.xml.writer.template, "base64", "stw"
+application/vnd.supercard-pro-disk-image, "base64", 0
+application/vnd.superfile.super, "base64", 0
 application/vnd.sus-calendar, "base64", "sus susp"
 application/vnd.svd, "base64", "svd"
+application/vnd.svr.receipt+json, "base64", 0
 application/vnd.swiftview-ics, "base64", 0
+application/vnd.sybyl.mol2, "base64", 0
+application/vnd.sycle+xml, "base64", 0
+application/vnd.syft+json, "base64", 0
 application/vnd.symbian.install, "base64", "sis sisx"
 application/vnd.syncml+xml, "base64", "xsm"
 application/vnd.syncml.dm+wbxml, "base64", "bdm"
@@ -1148,17 +1764,25 @@ application/vnd.syncml.dmddf+xml, "base64", 0
 application/vnd.syncml.dmtnds+wbxml, "base64", 0
 application/vnd.syncml.dmtnds+xml, "base64", 0
 application/vnd.syncml.ds.notification, "base64", 0
+application/vnd.tableschema+json, "base64", 0
 application/vnd.tao.intent-module-archive, "base64", "tao"
 application/vnd.tcpdump.pcap, "base64", "cap dmp pcap"
+application/vnd.tcpdump.pcapng, "base64", "pcapng"
+application/vnd.think-cell.ppttc+json, "base64", 0
 application/vnd.tmd.mediaflex.api+xml, "base64", 0
 application/vnd.tml, "base64", 0
 application/vnd.tmobile-livetv, "base64", "tmo"
+application/vnd.tri.onesource, "base64", 0
 application/vnd.trid.tpt, "base64", "tpt"
 application/vnd.triscape.mxs, "base64", "mxs"
 application/vnd.trueapp, "base64", "tra"
 application/vnd.truedoc, "base64", 0
 application/vnd.ubisoft.webplayer, "base64", 0
 application/vnd.ufdl, "base64", "ufd ufdl"
+application/vnd.uic.dosipas.v1, "base64", 0
+application/vnd.uic.dosipas.v2, "base64", 0
+application/vnd.uic.osdm+json, "base64", 0
+application/vnd.uic.tlb-fcb, "base64", 0
 application/vnd.uiq.theme, "base64", "utz"
 application/vnd.umajin, "base64", "umj"
 application/vnd.unity, "base64", "unityweb"
@@ -1182,27 +1806,43 @@ application/vnd.vcx, "base64", "vcx"
 application/vnd.vd-study, "base64", 0
 application/vnd.vectorworks, "base64", 0
 application/vnd.vel+json, "base64", 0
+application/vnd.veraison.tsm-report+cbor, "base64", 0
+application/vnd.veraison.tsm-report+json, "base64", 0
+application/vnd.verifier-attestation+jwt, "base64", 0
 application/vnd.verimatrix.vcas, "base64", 0
+application/vnd.veritone.aion+json, "base64", 0
+application/vnd.vertifile.pvf, "base64", 0
+application/vnd.veryant.thin, "base64", 0
+application/vnd.ves.encrypted, "base64", 0
 application/vnd.vidsoft.vidconference, "8bit", "vsc"
+application/vnd.vimina.vma, "base64", 0
 application/vnd.visio, "base64", "vsd vst vsw vss"
 application/vnd.visionary, "base64", "vis"
 application/vnd.vividence.scriptfile, "base64", 0
+application/vnd.vocalshaper.vsp4, "base64", 0
 application/vnd.vsf, "base64", "vsf"
+application/vnd.vuq, "base64", 0
+application/vnd.wantverse, "base64", 0
 application/vnd.wap.sic, "base64", "sic"
 application/vnd.wap.slc, "base64", "slc"
 application/vnd.wap.wbxml, "base64", "wbxml"
 application/vnd.wap.wmlc, "base64", "wmlc"
 application/vnd.wap.wmlscriptc, "base64", "wmlsc"
+application/vnd.wasmflow.wafl, "base64", 0
 application/vnd.webturbo, "base64", "wtb"
+application/vnd.wfa.dpp, "base64", 0
 application/vnd.wfa.p2p, "base64", 0
 application/vnd.wfa.wsc, "base64", 0
 application/vnd.windows.devicepairing, "base64", 0
+application/vnd.wmap, "base64", 0
 application/vnd.wmc, "base64", 0
 application/vnd.wmf.bootstrap, "base64", 0
 application/vnd.wolfram.mathematica, "base64", 0
 application/vnd.wolfram.mathematica.package, "base64", 0
 application/vnd.wolfram.player, "base64", "nbp"
-application/vnd.wordperfect, "base64", "wpd"
+application/vnd.wolfram.wl, "base64", "wl"
+application/vnd.wordlift, "base64", 0
+application/vnd.wordperfect, "base64", "wpd wp wp5 wp6 w60 wp61 wpt"
 application/vnd.wqd, "base64", "wqd"
 application/vnd.wrq-hp3000-labelled, "base64", 0
 application/vnd.wt.stf, "base64", "stf"
@@ -1211,6 +1851,9 @@ application/vnd.wv.csp+xml, "8bit", 0
 application/vnd.wv.ssp+xml, "8bit", 0
 application/vnd.xacml+json, "base64", 0
 application/vnd.xara, "base64", "xar"
+application/vnd.xarin.cpj, "base64", 0
+application/vnd.xcdn, "base64", 0
+application/vnd.xecrets-encrypted, "base64", 0
 application/vnd.xfdl, "base64", "xfdl"
 application/vnd.xfdl.webform, "base64", 0
 application/vnd.xmi+xml, "base64", 0
@@ -1231,16 +1874,34 @@ application/vnd.yamaha.through-ngn, "base64", 0
 application/vnd.yamaha.tunnel-udpencap, "base64", 0
 application/vnd.yaoweme, "base64", 0
 application/vnd.yellowriver-custom-menu, "base64", "cmp"
+application/vnd.youtube.yt, "base64", 0
+application/vnd.zoho-document.writer, "base64", 0
+application/vnd.zoho-presentation.show, "base64", 0
+application/vnd.zoho.spreadsheetml.sheet, "base64", 0
 application/vnd.zul, "base64", "zir zirz"
 application/vnd.zzazz.deck+xml, "base64", "zaz"
 application/voicexml+xml, "base64", "vxml"
+application/voucher+cose, "base64", 0
+application/voucher-cms+json, "base64", 0
+application/voucher-cose+cbor, "base64", 0
+application/voucher-jws+json, "base64", 0
+application/vp, "base64", 0
+application/vp+cose, "base64", 0
+application/vp+jwt, "base64", 0
+application/vp+sd-jwt, "base64", 0
 application/vq-rtcpxr, "base64", 0
+application/warc, "base64", "warc"
+application/warc+gz, "base64", "warc.gz"
+application/wasm, "8bit", "wasm"
 application/watcherinfo+xml, "base64", "wif"
+application/webbundle, "base64", 0
+application/webpush-options+json, "base64", 0
 application/whoispp-query, "base64", 0
 application/whoispp-response, "base64", 0
 application/widget, "base64", "wgt"
 application/winhlp, "base64", "hlp"
 application/wita, "base64", 0
+application/won, "base64", 0
 application/word, "base64", "doc dot"
 application/wordperfect, "base64", "wp"
 application/wordperfect5.1, "base64", "wp5 wp"
@@ -1250,103 +1911,209 @@ application/wsdl+xml, "base64", "wsdl"
 application/wspolicy+xml, "base64", "wspolicy"
 application/x-123, "base64", "wk"
 application/x-7z-compressed, "base64", "7z"
+application/x-SLA, "base64", 0
+application/x-STEP, "base64", 0
+application/x-VMSBACKUP, "base64", "bck"
+application/x-Wingz, "base64", "wz wkz"
 application/x-abiword, "base64", "abw"
 application/x-access, "base64", "mdf mda mdb mde"
 application/x-ace-compressed, "base64", "ace"
+application/x-activemime, "base64", 0
+application/x-adobe-indesign, "base64", "indd"
+application/x-adobe-indesign-interchange, "base64", "inx"
+application/x-amf, "base64", "amf"
+application/x-amiga-disk-format, "base64", "adf"
 application/x-apple-diskimage, "base64", "dmg"
+application/x-appleworks, "base64", "cwk"
+application/x-archive, "base64", "ar a"
+application/x-arj, "base64", "arj"
+application/x-asprs, "base64", "las laz"
+application/x-atari-floppy-disk-image, "base64", 0
 application/x-authorware-bin, "base64", "aab u32 vox x32"
 application/x-authorware-map, "base64", "aam"
 application/x-authorware-seg, "base64", "aas"
+application/x-axcrypt, "base64", "axx"
+application/x-bat, "base64", "bat cmd"
 application/x-bcpio, "base64", "bcpio"
+application/x-bentley-besqlite, "base64", 0
+application/x-bentley-localization, "base64", 0
+application/x-berkeley-db, "base64", 0
+application/x-bibtex-text-file, "base64", "bib bibtex"
 application/x-bittorrent, "base64", "torrent"
 application/x-bleeper, "base64", "bleep"
 application/x-blorb, "base64", "blb blorb"
-application/x-bzip, "base64", "bz"
-application/x-bzip2, "base64", "boz bz2"
+application/x-bplist, "base64", 0
+application/x-brotli, "base64", "br brotli"
+application/x-bzip, "base64", "bz tbz"
+application/x-bzip2, "base64", "boz bz2 tbz2"
 application/x-cbr, "base64", "cb7 cba cbr cbt cbz"
+application/x-cdf, "base64", "cda"
 application/x-cdlink, "base64", "vcd"
 application/x-cfs-compressed, "base64", "cfs"
 application/x-chat, "base64", "chat"
 application/x-chess-pgn, "base64", "pgn"
 application/x-chrome-extension, "base64", "crx"
+application/x-chrome-package, "base64", "crx"
 application/x-clariscad, "base64", 0
 application/x-compress, "base64", "z Z"
 application/x-compressed, "base64", "z Z"
 application/x-conference, "base64", "nsc"
+application/x-coredump, "base64", 0
+application/x-corelpresentations, "base64", "shw"
 application/x-cpio, "base64", "cpio"
-application/x-csh, "8bit", "csh"
+application/x-csh, "8bit", "csh tcsh"
 application/x-cu-seeme, "base64", "csm cu"
+application/x-dbf, "base64", "dbf dbase dbase3"
 application/x-debian-package, "base64", "deb udeb"
+application/x-dex, "base64", "dex"
 application/x-dgc-compressed, "base64", "dgc"
 application/x-director, "base64", "dcr @dir @dxr cct cst cxt dir dxr fgd swa w3d"
 application/x-doom, "base64", "wad"
+application/x-dosexec, "base64", "exe"
 application/x-drafting, "base64", 0
 application/x-dtbncx+xml, "base64", "ncx"
 application/x-dtbook+xml, "base64", "dtb"
 application/x-dtbresource+xml, "base64", "res"
+application/x-dvd-ifo, "base64", "ifo bup"
 application/x-dvi, "base64", "dvi"
 application/x-dxf, "base64", 0
+application/x-ebu-stl, "base64", 0
+application/x-ecmascript, "8bit", 0
+application/x-elc, "base64", "elc"
+application/x-elf, "base64", 0
+application/x-endnote-refer, "base64", "enw enr"
+application/x-endnote-style, "base64", "ens"
 application/x-envoy, "base64", "evy"
+application/x-erdas-hfa, "base64", "hfa"
+application/x-esri-layer, "base64", "lyr"
+application/x-esri-spatially-enabled-db, "base64", 0
 application/x-eva, "base64", "eva"
 application/x-excel, "base64", 0
+application/x-executable, "base64", 0
+application/x-fat-diskimage, "base64", 0
+application/x-fictionbook+xml, "base64", "fb2"
+application/x-filemaker, "base64", "fp7"
+application/x-font-adobe-metric, "base64", "afm acfm amfm"
 application/x-font-bdf, "base64", "bdf"
+application/x-font-dos, "base64", 0
+application/x-font-framemaker, "base64", 0
 application/x-font-ghostscript, "base64", "gsf"
+application/x-font-libgrx, "base64", 0
 application/x-font-linux-psf, "base64", "psf"
 application/x-font-opentype, "base64", "otf"
 application/x-font-otf, "base64", "otf"
 application/x-font-pcf, "base64", "pcf"
+application/x-font-printer-metric, "base64", "pfm"
 application/x-font-snf, "base64", "snf"
+application/x-font-speedo, "base64", 0
+application/x-font-sunos-news, "base64", 0
 application/x-font-truetype, "base64", "ttf"
 application/x-font-ttf, "base64", "ttc ttf"
 application/x-font-type1, "base64", "afm pfa pfb pfm"
+application/x-font-vfont, "base64", 0
+application/x-fossil-checkout, "base64", 0
+application/x-fossil-global-conf, "base64", 0
+application/x-fossil-repository, "base64", 0
+application/x-foxmail, "base64", 0
 application/x-fractals, "base64", 0
 application/x-freearc, "base64", "arc"
 application/x-futuresplash, "base64", "spl"
 application/x-gca-compressed, "base64", "gca"
+application/x-geopackage, "base64", "gpkg"
 application/x-ghostview, "base64", 0
 application/x-glulx, "base64", "ulx"
+application/x-gnucash, "base64", "gnucash"
 application/x-gnumeric, "base64", "gnumeric"
 application/x-gramps-xml, "base64", "gramps"
+application/x-grib, "base64", "grb grb1 grb2"
 application/x-gtar, "base64", "gtar tgz tbz2 tbz"
+application/x-guitar-pro, "base64", "gp4"
 application/x-gzip, "base64", "gz"
-application/x-hdf, "base64", "hdf"
+application/x-hdf, "base64", "hdf he5 h5"
 application/x-hep, "base64", "hep"
 application/x-html+ruby, "8bit", "rhtml"
 application/x-httpd-php, "8bit", "phtml pht php"
+application/x-httpresponse, "base64", 0
+application/x-hwp, "base64", 0
+application/x-hwp-v5, "base64", 0
 application/x-ibooks+zip, "base64", "ibooks"
 application/x-ica, "base64", "ica"
 application/x-ideas, "base64", 0
+application/x-idl-save-file, "base64", 0
 application/x-imagemap, "8bit", "imagemap imap"
 application/x-install-instructions, "base64", "install"
+application/x-internet-archive, "base64", "arc"
+application/x-isatab, "base64", 0
+application/x-isatab-assay, "base64", 0
+application/x-isatab-investigation, "base64", 0
 application/x-iso9660-image, "base64", "iso"
+application/x-itunes-bplist, "base64", 0
+application/x-itunes-ipa, "base64", "ipa"
 application/x-iwork-keynote-sffkey, "base64", "key"
 application/x-iwork-numbers-sffnumbers, "base64", "numbers"
 application/x-iwork-pages-sffpages, "base64", "pages"
 application/x-java-archive, "base64", "jar"
+application/x-java-jnilib, "base64", "jnilib"
 application/x-java-jnlp-file, "base64", "jnlp"
+application/x-java-keystore, "base64", "jks"
+application/x-java-pack200, "base64", "pack"
 application/x-java-serialized-object, "base64", "ser"
 application/x-java-vm, "base64", "class"
-application/x-javascript, "8bit", "js"
+application/x-javascript, "8bit", "js mjs"
+application/x-jeol-jdf, "base64", "jdf"
+application/x-jigdo, "base64", 0
+application/x-kdelnk, "base64", 0
+application/x-killustrator, "base64", "kil"
 application/x-koan, "base64", "skp skd skt skm"
 application/x-latex, "8bit", "ltx latex"
+application/x-lha, "base64", 0
+application/x-lharc, "base64", 0
 application/x-lotus-123, "base64", "wks"
+application/x-lz4, "base64", "lz4"
 application/x-lzh-compressed, "base64", "lha lzh"
+application/x-lzip, "base64", "lz"
+application/x-lzma, "base64", "lzma"
 application/x-mac, "base64", "bin"
 application/x-mac-compactpro, "base64", "cpt"
 application/x-macbase64, "base64", "bin"
 application/x-macbinary, "base64", 0
+application/x-mach-o, "base64", 0
+application/x-mach-o-bundle, "base64", 0
+application/x-mach-o-core, "base64", 0
+application/x-mach-o-dsym, "base64", 0
+application/x-mach-o-dylib, "base64", 0
+application/x-mach-o-dylib-stub, "base64", 0
+application/x-mach-o-dylinker, "base64", 0
+application/x-mach-o-executable, "base64", 0
+application/x-mach-o-fvmlib, "base64", 0
+application/x-mach-o-kext-bundle, "base64", 0
+application/x-mach-o-object, "base64", 0
+application/x-mach-o-preload, "base64", 0
+application/x-mach-o-universal, "base64", 0
 application/x-maker, "base64", "frm maker frame fm fb book fbdoc"
 application/x-mathcad, "base64", "mcd"
 application/x-mathematica-old, "base64", 0
+application/x-matlab-data, "base64", "mat"
+application/x-matroska, "base64", 0
+application/x-mbtiles, "base64", 0
+application/x-memgraph, "base64", "memgraph"
 application/x-mie, "base64", "mie"
 application/x-mif, "base64", "mif"
+application/x-mmm-digisonde, "base64", 0
 application/x-mobipocket-ebook, "base64", "mobi prc"
+application/x-monotone-source-repo, "base64", 0
 application/x-ms-application, "base64", "application"
+application/x-ms-asx, "base64", "asx"
+application/x-ms-compress-szdd, "base64", 0
+application/x-ms-dos-executable, "base64", "exe"
+application/x-ms-installer, "base64", "msi msp mst"
+application/x-ms-nls, "base64", 0
+application/x-ms-owner, "base64", 0
 application/x-ms-shortcut, "base64", "lnk"
 application/x-ms-wmd, "base64", "wmd"
 application/x-ms-wmz, "base64", "wmz"
 application/x-ms-xbap, "base64", "xbap"
-application/x-msaccess, "base64", "mda mdb mde mdf"
+application/x-msaccess, "base64", "mda mdb mde mdf accdb"
 application/x-msbinder, "base64", "obd"
 application/x-mscardfile, "base64", "crd"
 application/x-msclip, "base64", "clp"
@@ -1360,33 +2127,79 @@ application/x-msschedule, "base64", "scd"
 application/x-msterminal, "base64", "trm"
 application/x-msword, "base64", "doc dot wrd"
 application/x-mswrite, "base64", "wri"
+application/x-mysql-db, "base64", 0
+application/x-mysql-misam-compressed-index, "base64", "myi"
+application/x-mysql-misam-data, "base64", "myd"
+application/x-mysql-misam-index, "base64", 0
+application/x-mysql-table-definition, "base64", 0
+application/x-nesrom, "base64", "nes"
 application/x-netcdf, "base64", "nc cdf"
 application/x-ns-proxy-autoconfig, "base64", "pac"
 application/x-nzb, "base64", "nzb"
+application/x-object, "base64", 0
+application/x-openscad, "base64", "scad"
 application/x-opera-extension, "base64", "oex"
 application/x-pagemaker, "base64", "pm pm5 pt5"
+application/x-parquet, "base64", "parquet"
+application/x-pds, "base64", 0
 application/x-perl, "8bit", "pl pm"
 application/x-pgp, "base64", 0
 application/x-pkcs12, "base64", "p12 pfx"
 application/x-pkcs7-certificates, "base64", "p7b spc"
 application/x-pkcs7-certreqresp, "base64", "p7r"
+application/x-pki-message, "base64", 0
+application/x-plist, "base64", 0
+application/x-project, "base64", "mpx"
+application/x-prt, "base64", "prt"
 application/x-python, "8bit", "py"
+application/x-quattro-pro, "base64", "wq1 wq2 wkq qpw wb1 wb2 wb3"
 application/x-quicktimeplayer, "base64", "qtl"
 application/x-rar-compressed, "base64", "rar"
 application/x-remote_printing, "base64", 0
 application/x-research-info-systems, "base64", "ris"
+application/x-roxio-toast, "base64", "toast"
+application/x-rpm, "base64", "rpm"
 application/x-rtf, "base64", "rtf"
 application/x-ruby, "8bit", "rb rbw"
+application/x-sas, "base64", "sas"
+application/x-sas-access, "base64", "sa7 sas7bacs"
+application/x-sas-audit, "base64", "st7 sas7baud"
+application/x-sas-backup, "base64", "sas7bbak"
+application/x-sas-catalog, "base64", "sc7 sas7bcat"
+application/x-sas-data, "base64", "sd7 sas7bdat"
+application/x-sas-data-index, "base64", "si7 sas7bndx"
+application/x-sas-data-v6, "base64", "sd2"
+application/x-sas-dmdb, "base64", "s7m sas7bdmd"
+application/x-sas-fdb, "base64", "sf7 sas7bfdb"
+application/x-sas-itemstor, "base64", "sr7 sas7bitm"
+application/x-sas-mddb, "base64", "sm7 sas7bmdb"
+application/x-sas-program-data, "base64", "ss7 sas7bpgm"
+application/x-sas-putility, "base64", "sp7 sas7bput"
+application/x-sas-transport, "base64", "stx"
+application/x-sas-utility, "base64", "su7 sas7butl"
+application/x-sas-view, "base64", "sv7 sas7bvew"
+application/x-sas-xport, "base64", "xpt xport"
+application/x-sc, "base64", 0
 application/x-set, "base64", 0
-application/x-sh, "8bit", "sh"
+application/x-sfdu, "base64", "sfdu"
+application/x-sh, "8bit", "sh bash"
+application/x-shapefile, "base64", "shp"
 application/x-shar, "8bit", "shar"
+application/x-sharedlib, "base64", 0
 application/x-shockwave-flash, "base64", "swf"
+application/x-sibelius, "base64", "sib"
 application/x-silverlight-app, "base64", "xap"
-application/x-SLA, "base64", 0
+application/x-smarttech-notebook, "base64", "notebook"
+application/x-snappy-framed, "base64", "sz"
 application/x-solids, "base64", 0
+application/x-spectrum-tzx, "base64", "tzx"
 application/x-spss, "base64", "sav sbs sps spo spp"
+application/x-spss-sav, "base64", "sav"
 application/x-sql, "base64", "sql"
-application/x-STEP, "base64", 0
+application/x-sqlite3, "base64", 0
+application/x-staroffice-template, "base64", "vor"
+application/x-stata-do, "base64", "do"
+application/x-stata-dta, "base64", "dta"
 application/x-stuffit, "base64", "sit"
 application/x-stuffitx, "base64", "sitx"
 application/x-subrip, "base64", "srt"
@@ -1398,30 +2211,63 @@ application/x-tar, "base64", "tar"
 application/x-tcl, "8bit", "tcl"
 application/x-tex, "8bit", "tex"
 application/x-tex-tfm, "base64", "tfm"
+application/x-tex-virtual-font, "base64", "vf"
 application/x-texinfo, "8bit", "texinfo texi"
+application/x-texnicard, "base64", 0
 application/x-tgif, "base64", "obj"
+application/x-tika-iworks-protected, "base64", 0
+application/x-tika-java-enterprise-archive, "base64", "ear"
+application/x-tika-java-web-archive, "base64", "war"
+application/x-tika-msoffice, "base64", 0
+application/x-tika-msoffice-embedded, "base64", 0
+application/x-tika-msworks-spreadsheet, "base64", "xlr"
+application/x-tika-old-excel, "base64", 0
+application/x-tika-ooxml, "base64", 0
+application/x-tika-ooxml-protected, "base64", 0
+application/x-tika-staroffice, "base64", 0
+application/x-tika-unix-dump, "base64", 0
+application/x-tika-visio-ooxml, "base64", 0
+application/x-tmx, "base64", "tmx"
 application/x-toolbook, "base64", "tbk"
+application/x-touhou, "base64", 0
 application/x-troff, "base64", "t tr roff"
 application/x-troff-man, "8bit", "man"
 application/x-troff-me, "base64", "me"
 application/x-troff-ms, "base64", "ms"
 application/x-u-star, "base64", 0
+application/x-uc2-compressed, "base64", "uc2"
 application/x-ustar, "base64", "ustar"
-application/x-VMSBACKUP, "base64", "bck"
+application/x-vhd, "base64", 0
+application/x-vmdk, "base64", "vmdk"
+application/x-vnd.datapackage+gz, "base64", 0
+application/x-vnd.datapackage+json, "base64", 0
+application/x-vnd.datapackage+zip, "base64", 0
+application/x-wacz, "base64", 0
 application/x-wais-source, "base64", "src"
 application/x-web-app-manifest+json, "base64", "webapp"
-application/x-Wingz, "base64", "wz wkz"
+application/x-webarchive, "base64", "webarchive"
 application/x-word, "base64", "doc dot"
 application/x-wordperfect, "base64", "wp"
 application/x-wordperfect6.1, "base64", "wp6"
 application/x-wordperfectd, "base64", "wpd"
 application/x-www-form-urlencoded, "7bit", 0
 application/x-x509-ca-cert, "base64", "crt der"
+application/x-x509-ca-ra-cert, "base64", 0
+application/x-x509-cert, "base64", "crt"
+application/x-x509-dsa-parameters, "base64", 0
+application/x-x509-ec-parameters, "base64", 0
+application/x-x509-key, "base64", 0
+application/x-x509-next-ca-cert, "base64", 0
 application/x-xfig, "base64", "fig"
-application/x-xliff+xml, "base64", "xlf"
+application/x-xliff+xml, "base64", "xlf xliff"
+application/x-xliff+zip, "base64", "xlz"
+application/x-xmind, "base64", "xmind"
 application/x-xpinstall, "base64", "xpi"
 application/x-xz, "base64", "xz"
+application/x-zim, "base64", 0
+application/x-zip-compressed, "base64", "zip"
 application/x-zmachine, "base64", "z1 z2 z3 z4 z5 z6 z7 z8"
+application/x-zoo, "base64", "zoo"
 application/x400-bp, "base64", 0
 application/x400.bp, "base64", 0
 application/xacml+xml, "base64", 0
@@ -1435,51 +2281,49 @@ application/xcap-ns+xml, "base64", 0
 application/xcon-conference-info+xml, "base64", 0
 application/xcon-conference-info-diff+xml, "base64", 0
 application/xenc+xml, "base64", "xenc"
-application/xhtml+xml, "8bit", "xht xhtml"
+application/xfdf, "base64", 0
+application/xhtml+xml, "8bit", "xht xhtml xhtml2"
 application/xhtml-voice+xml, "base64", 0
-application/xml, "8bit", "xml xsl"
+application/xliff+xml, "base64", 0
+application/xml, "8bit", "xml xsl xsd"
 application/xml-dtd, "8bit", "dtd"
 application/xml-external-parsed-entity, "base64", 0
 application/xml-patch+xml, "base64", 0
 application/xmpp+xml, "base64", 0
 application/xop+xml, "base64", "xop"
 application/xproc+xml, "base64", "xpl"
+application/xquery, "base64", "xq xquery"
+application/xslfo+xml, "base64", "xslfo fo"
 application/xslt+xml, "base64", "xslt"
 application/xspf+xml, "base64", "xspf"
 application/xv+xml, "base64", "mxml xhvml xvm xvml"
+application/yaml, "base64", 0
 application/yang, "base64", "yang"
+application/yang-data+cbor, "base64", 0
+application/yang-data+json, "base64", 0
+application/yang-data+xml, "base64", 0
+application/yang-patch+json, "base64", 0
+application/yang-patch+xml, "base64", 0
+application/yang-sid+json, "base64", 0
 application/yin+xml, "base64", "yin"
-application/zip, "base64", "zip"
+application/zip, "base64", "zip zipx"
 application/zlib, "base64", 0
+application/zstd, "base64", "zst"
 audio/1d-interleaved-parityfec, "base64", 0
 audio/32kadpcm, "base64", 0
 audio/3gpp, "base64", 0
 audio/3gpp2, "base64", 0
-audio/ac3, "base64", 0
-audio/adpcm, "base64", "adp"
 audio/AMR, "base64", "amr"
 audio/AMR-WB, "base64", "awb"
-audio/amr-wb+, "base64", 0
-audio/aptx, "base64", 0
-audio/asc, "base64", 0
 audio/ATRAC-ADVANCED-LOSSLESS, "base64", 0
 audio/ATRAC-X, "base64", 0
 audio/ATRAC3, "base64", 0
-audio/basic, "base64", "au snd"
 audio/BV16, "base64", 0
 audio/BV32, "base64", 0
-audio/clearmode, "base64", 0
 audio/CN, "base64", 0
 audio/DAT12, "base64", 0
-audio/dls, "base64", 0
-audio/dsr-es201108, "base64", 0
-audio/dsr-es202050, "base64", 0
-audio/dsr-es202211, "base64", 0
-audio/dsr-es202212, "base64", 0
 audio/DV, "base64", 0
 audio/DVI4, "base64", 0
-audio/eac3, "base64", 0
-audio/encaprtp, "base64", 0
 audio/EVRC, "base64", "evc"
 audio/EVRC-QCP, "base64", 0
 audio/EVRC0, "base64", 0
@@ -1494,8 +2338,6 @@ audio/EVRCWB, "base64", 0
 audio/EVRCWB0, "base64", 0
 audio/EVRCWB1, "base64", 0
 audio/EVS, "base64", 0
-audio/example, "base64", 0
-audio/fwdred, "base64", 0
 audio/G711-0, "base64", 0
 audio/G719, "base64", 0
 audio/G722, "base64", 0
@@ -1513,55 +2355,90 @@ audio/G729E, "base64", 0
 audio/GSM, "base64", 0
 audio/GSM-EFR, "base64", 0
 audio/GSM-HR-08, "base64", 0
-audio/iLBC, "base64", 0
-audio/ip-mr_v2.5, "base64", 0
 audio/L16, "base64", "l16"
 audio/L20, "base64", 0
 audio/L24, "base64", 0
 audio/L8, "base64", 0
 audio/LPC, "base64", 0
-audio/midi, "base64", "kar mid midi rmi"
-audio/mobile-xmf, "base64", 0
-audio/mp4, "base64", "mp4 mpg4 f4a f4b mp4a m4a"
+audio/MELP, "base64", 0
+audio/MELP1200, "base64", 0
+audio/MELP2400, "base64", 0
+audio/MELP600, "base64", 0
 audio/MP4A-LATM, "base64", "m4a"
 audio/MPA, "base64", 0
-audio/mpa-robust, "base64", 0
-audio/mpeg, "base64", "mpga mp2 mp3 m2a m3a mp2a"
-audio/mpeg4-generic, "base64", 0
-audio/ogg, "base64", "oga ogg spx"
-audio/opus, "base64", 0
-audio/parityfec, "base64", 0
 audio/PCMA, "base64", 0
 audio/PCMA-WB, "base64", 0
 audio/PCMU, "base64", 0
 audio/PCMU-WB, "base64", 0
-audio/prs.sid, "base64", 0
 audio/QCELP, "base64", 0
-audio/raptorfec, "base64", 0
 audio/RED, "base64", 0
+audio/SMV, "base64", "smv"
+audio/SMV-QCP, "base64", 0
+audio/SMV0, "base64", 0
+audio/TETRA_ACELP, "base64", 0
+audio/TETRA_ACELP_BB, "base64", 0
+audio/TSVCIS, "base64", 0
+audio/UEMCLIP, "base64", 0
+audio/VDVI, "base64", 0
+audio/VMR-WB, "base64", 0
+audio/aac, "base64", "aac"
+audio/ac3, "base64", "ac3"
+audio/adpcm, "base64", "adp"
+audio/amr-wb+, "base64", 0
+audio/aptx, "base64", 0
+audio/asc, "base64", 0
+audio/basic, "base64", "au snd"
+audio/clearmode, "base64", 0
+audio/dls, "base64", 0
+audio/dsr-es201108, "base64", 0
+audio/dsr-es202050, "base64", 0
+audio/dsr-es202211, "base64", 0
+audio/dsr-es202212, "base64", 0
+audio/eac3, "base64", 0
+audio/encaprtp, "base64", 0
+audio/example, "base64", 0
+audio/flac, "base64", "flac"
+audio/flexfec, "base64", 0
+audio/fwdred, "base64", 0
+audio/iLBC, "base64", 0
+audio/ip-mr_v2.5, "base64", 0
+audio/matroska, "base64", "mka"
+audio/mhas, "base64", 0
+audio/midi, "base64", "kar mid midi rmi"
+audio/midi-clip, "base64", 0
+audio/mobile-xmf, "base64", 0
+audio/mp4, "base64", "mp4 mpg4 f4a f4b mp4a m4a m4b"
+audio/mpa-robust, "base64", 0
+audio/mpeg, "base64", "mpga mp2 mp3 m2a m3a mp2a"
+audio/mpeg4-generic, "base64", 0
+audio/ogg, "base64", "oga ogg spx opus"
+audio/opus, "base64", "opus"
+audio/parityfec, "base64", 0
+audio/prs.sid, "base64", 0
+audio/raptorfec, "base64", 0
 audio/rtp-enc-aescm128, "base64", 0
 audio/rtp-midi, "base64", 0
 audio/rtploopback, "base64", 0
 audio/rtx, "base64", 0
 audio/s3m, "base64", "s3m"
+audio/scip, "base64", 0
 audio/silk, "base64", "sil"
-audio/SMV, "base64", "smv"
-audio/SMV-QCP, "base64", 0
-audio/SMV0, "base64", 0
+audio/sofa, "base64", 0
+audio/soundfont, "base64", 0
 audio/sp-midi, "base64", 0
-audio/speex, "base64", 0
+audio/speex, "base64", "spx"
 audio/t140c, "base64", 0
 audio/t38, "base64", 0
 audio/telephone-event, "base64", 0
 audio/tone, "base64", 0
-audio/UEMCLIP, "base64", 0
 audio/ulpfec, "base64", 0
-audio/VDVI, "base64", 0
-audio/VMR-WB, "base64", 0
+audio/usac, "base64", 0
 audio/vnd.3gpp.iufp, "base64", 0
 audio/vnd.4SB, "base64", 0
-audio/vnd.audiokoz, "base64", 0
 audio/vnd.CELP, "base64", 0
+audio/vnd.adobe.soundbooth, "base64", "asnd"
+audio/vnd.audiokoz, "base64", 0
+audio/vnd.blockfact.facta, "base64", 0
 audio/vnd.cisco.nse, "base64", 0
 audio/vnd.cmles.radio-events, "base64", 0
 audio/vnd.cns.anp1, "base64", 0
@@ -1580,6 +2457,7 @@ audio/vnd.dolby.pulse.1, "base64", 0
 audio/vnd.dra, "base64", "dra"
 audio/vnd.dts, "base64", "dts"
 audio/vnd.dts.hd, "base64", "dtshd"
+audio/vnd.dts.uhd, "base64", 0
 audio/vnd.dvb.file, "base64", 0
 audio/vnd.everad.plj, "base64", "plj"
 audio/vnd.hns.audio, "base64", 0
@@ -1591,27 +2469,39 @@ audio/vnd.nuera.ecelp4800, "base64", "ecelp4800"
 audio/vnd.nuera.ecelp7470, "base64", "ecelp7470"
 audio/vnd.nuera.ecelp9600, "base64", "ecelp9600"
 audio/vnd.octel.sbc, "base64", 0
+audio/vnd.presonus.multitrack, "base64", 0
 audio/vnd.qcelp, "base64", "qcp"
 audio/vnd.rhetorex.32kadpcm, "base64", 0
 audio/vnd.rip, "base64", "rip"
 audio/vnd.sealedmedia.softseal.mpeg, "base64", "smp3 smp s1m"
 audio/vnd.vmx.cvsd, "base64", 0
-audio/vorbis, "base64", 0
+audio/vnd.wave, "base64", "wav"
+audio/vorbis, "base64", "ogg"
 audio/vorbis-config, "base64", 0
+audio/wav, "base64", "wav"
 audio/webm, "base64", "weba webm"
 audio/x-aac, "base64", "aac"
+audio/x-adpcm, "base64", 0
 audio/x-aiff, "base64", "aif aifc aiff"
 audio/x-caf, "base64", "caf"
+audio/x-dec-adpcm, "base64", 0
+audio/x-dec-basic, "base64", 0
 audio/x-flac, "base64", "flac"
+audio/x-m4a, "base64", 0
 audio/x-matroska, "base64", "mka"
 audio/x-midi, "base64", "mid midi kar"
+audio/x-mod, "base64", "mod"
 audio/x-mpegurl, "base64", "m3u"
 audio/x-ms-wax, "base64", "wax"
 audio/x-ms-wma, "base64", "wma"
 audio/x-ms-wmv, "base64", "wmv"
+audio/x-oggflac, "base64", 0
+audio/x-oggpcm, "base64", 0
 audio/x-pn-realaudio, "base64", "ra ram"
 audio/x-pn-realaudio-plugin, "base64", "rmp rpm"
+audio/x-psf, "base64", "psf1 psflib minipsf minipsf1 gslib minigsf"
 audio/x-realaudio, "base64", "ra"
+audio/x-sap, "base64", "sap"
 audio/x-wav, "base64", "wav"
 audio/xm, "base64", "xm"
 chemical/x-cdx, "base64", "cdx"
@@ -1622,21 +2512,62 @@ chemical/x-csml, "base64", "csml"
 chemical/x-pdb, "base64", "pdb"
 chemical/x-xyz, "base64", "xyz"
 drawing/dwf, "base64", "dwf"
-image/bmp, "base64", "bmp"
+font/collection, "base64", "ttc"
+font/otf, "base64", "otf"
+font/sfnt, "base64", 0
+font/ttf, "base64", "ttf"
+font/woff, "base64", "woff"
+font/woff2, "base64", "woff2"
+haptics/hjif, "base64", 0
+haptics/hmpg, "base64", 0
+haptics/ivs, "base64", 0
+image/aces, "base64", "exr"
+image/apng, "base64", 0
+image/avci, "base64", 0
+image/avcs, "base64", 0
+image/avif, "base64", "avif"
+image/bmp, "base64", "bmp dib"
 image/cgm, "base64", "cgm"
 image/cmu-raster, "base64", 0
-image/emf, "base64", 0
+image/dicom-rle, "base64", 0
+image/dpx, "base64", 0
+image/emf, "base64", "emf"
 image/example, "base64", 0
 image/fits, "base64", 0
 image/g3fax, "base64", "g3"
 image/gif, "base64", "gif"
+image/heic, "base64", "heic hif"
+image/heic-sequence, "base64", "heics hif"
+image/heif, "base64", "heif hif"
+image/heif-sequence, "base64", "heifs hif"
+image/hej2k, "base64", 0
+image/hsj2, "base64", 0
+image/icns, "base64", "icns"
 image/ief, "base64", "ief"
+image/j2c, "base64", 0
+image/j2is, "base64", 0
+image/jaii, "base64", 0
+image/jais, "base64", 0
+image/jls, "base64", 0
 image/jp2, "base64", "jp2 jpg2"
-image/jpeg, "base64", "jpeg jpg jpe"
+image/jpeg, "base64", "jpeg jpg jpe jfif jif jfi"
+image/jph, "base64", 0
+image/jphc, "base64", 0
 image/jpm, "base64", "jpm jpgm"
 image/jpx, "base64", "jpx jpf"
+image/jxl, "base64", "jxl"
+image/jxr, "base64", 0
+image/jxrA, "base64", 0
+image/jxrS, "base64", 0
+image/jxs, "base64", 0
+image/jxsc, "base64", 0
+image/jxsi, "base64", 0
+image/jxss, "base64", 0
 image/ktx, "base64", "ktx"
+image/ktx2, "base64", 0
 image/naplps, "base64", 0
+image/nitf, "base64", "ntf nitf"
+image/pdc, "base64", 0
 image/pjpeg, "base64", 0
 image/png, "base64", "png"
 image/prs.btif, "base64", "btif"
@@ -1649,13 +2580,17 @@ image/targa, "base64", "tga"
 image/tiff, "base64", "tiff tif"
 image/tiff-fx, "base64", 0
 image/vnd.adobe.photoshop, "base64", "psd"
+image/vnd.adobe.premiere, "base64", "ppj"
 image/vnd.airzip.accelerator.azv, "base64", 0
+image/vnd.blockfact.facti, "base64", 0
+image/vnd.clip, "base64", 0
 image/vnd.cns.inf2, "base64", 0
 image/vnd.dece.graphic, "base64", "uvg uvi uvvg uvvi"
-image/vnd.dgn, "base64", "dgn"
+image/vnd.dgn, "base64", "dgn dgnlib cel"
 image/vnd.djvu, "base64", "djvu djv"
 image/vnd.dvb.subtitle, "base64", "sub"
 image/vnd.dwg, "base64", "dwg"
+image/vnd.dxb, "base64", "dxb"
 image/vnd.dxf, "base64", "dxf"
 image/vnd.fastbidsheet, "base64", "fbs"
 image/vnd.fpx, "base64", "fpx"
@@ -1670,46 +2605,99 @@ image/vnd.ms-modi, "base64", "mdi"
 image/vnd.ms-photo, "base64", "wdp"
 image/vnd.net-fpx, "base64", "npx"
 image/vnd.net.fpx, "base64", 0
+image/vnd.pco.b16, "base64", 0
 image/vnd.radiance, "base64", 0
 image/vnd.sealed.png, "base64", 0
 image/vnd.sealedmedia.softseal.gif, "base64", 0
 image/vnd.sealedmedia.softseal.jpg, "base64", 0
+image/vnd.sld, "base64", 0
 image/vnd.svf, "base64", 0
 image/vnd.tencent.tap, "base64", 0
 image/vnd.valve.source.texture, "base64", 0
 image/vnd.wap.wbmp, "base64", "wbmp"
 image/vnd.xiff, "base64", "xif"
-image/vnd.zbrush.pcx, "base64", 0
+image/vnd.zbrush.dcx, "base64", "dcx"
+image/vnd.zbrush.pcx, "base64", "pcx"
 image/webp, "base64", "webp"
-image/wmf, "base64", 0
+image/wmf, "base64", "wmf"
 image/x-3ds, "base64", "3ds"
+image/x-adobe-dng, "base64", "dng"
 image/x-bmp, "base64", "bmp"
+image/x-bpg, "base64", "bpg"
+image/x-canon-cr2, "base64", "cr2"
+image/x-canon-cr3, "base64", "cr3"
+image/x-canon-crw, "base64", "crw"
 image/x-cmu-raster, "base64", "ras"
 image/x-cmx, "base64", "cmx"
 image/x-compressed-xcf, "base64", "xcfbz2 xcfgz"
-image/x-freehand, "base64", "fh fh4 fh5 fh7 fhc"
+image/x-dpx, "base64", "dpx"
+image/x-emf, "base64", 0
+image/x-emf-compressed, "base64", "emz"
+image/x-epson-erf, "base64", "erf"
+image/x-freehand, "base64", "fh fh4 fh5 fh7 fhc fh40 fh50 fh8 fh9 fh10 fh11 fh12 ft7 ft8 ft9 ft10 ft11 ft12"
+image/x-fuji-raf, "base64", "raf"
 image/x-hasselblad-3fr, "base64", "3fr"
 image/x-icon, "base64", "ico"
+image/x-jbig2, "base64", "jb2 jbig2"
+image/x-jp2-codestream, "base64", "j2c"
+image/x-jp2-container, "base64", 0
+image/x-kodak-dcr, "base64", "dcr"
+image/x-kodak-k25, "base64", "k25"
+image/x-kodak-kdc, "base64", "kdc"
+image/x-minolta-mrw, "base64", "mrw"
 image/x-mrsid-image, "base64", "sid"
 image/x-ms-bmp, "base64", "bmp"
+image/x-niff, "base64", 0
+image/x-nikon-nef, "base64", "nef"
+image/x-olympus-orf, "base64", "orf"
 image/x-paintshoppro, "base64", "psp pspimage"
+image/x-panasonic-raw, "base64", "raw"
 image/x-pcx, "base64", "pcx"
-image/x-pict, "base64", "pct pic"
+image/x-pentax-pef, "base64", "pef"
+image/x-pict, "base64", "pct pic pict"
 image/x-portable-anymap, "base64", "pnm"
+image/x-portable-arbitrarymap, "base64", "pam"
 image/x-portable-bitmap, "base64", "pbm"
 image/x-portable-graymap, "base64", "pgm"
 image/x-portable-pixmap, "base64", "ppm"
+image/x-raw-adobe, "base64", "dng"
+image/x-raw-canon, "base64", "crw"
+image/x-raw-casio, "base64", "bay"
+image/x-raw-epson, "base64", "erf"
+image/x-raw-fuji, "base64", "raf"
+image/x-raw-hasselblad, "base64", "3fr"
+image/x-raw-imacon, "base64", "fff"
+image/x-raw-kodak, "base64", "k25 kdc dcs drf"
+image/x-raw-leaf, "base64", "mos"
+image/x-raw-logitech, "base64", "pxn"
+image/x-raw-mamiya, "base64", "mef"
+image/x-raw-minolta, "base64", "mrw"
+image/x-raw-nikon, "base64", "nef nrw"
+image/x-raw-olympus, "base64", "orf"
+image/x-raw-panasonic, "base64", "raw rw2"
+image/x-raw-pentax, "base64", "ptx pef"
+image/x-raw-phaseone, "base64", "iiq"
+image/x-raw-rawzor, "base64", "rwz"
+image/x-raw-red, "base64", "r3d"
+image/x-raw-sigma, "base64", "x3f"
+image/x-raw-sony, "base64", "arw srf sr2"
 image/x-rgb, "base64", "rgb"
+image/x-sigma-x3f, "base64", "x3f"
+image/x-sony-arw, "base64", "arw"
+image/x-sony-sr2, "base64", "sr2"
+image/x-sony-srf, "base64", "srf"
 image/x-targa, "base64", "tga"
-image/x-tga, "base64", "tga"
+image/x-tga, "base64", "tga icb vda"
 image/x-vnd.dgn, "base64", "dgn"
 image/x-win-bmp, "base64", 0
+image/x-wmf, "base64", 0
 image/x-xbitmap, "7bit", "xbm"
 image/x-xbm, "7bit", "xbm"
 image/x-xcf, "base64", "xcf"
 image/x-xpixmap, "8bit", "xpm"
 image/x-xwindowdump, "base64", "xwd"
 message/CPIM, "base64", 0
+message/bhttp, "base64", 0
 message/delivery-status, "base64", 0
 message/disposition-notification, "base64", 0
 message/example, "base64", 0
@@ -1721,7 +2709,12 @@ message/global-disposition-notification, "base64", 0
 message/global-headers, "base64", 0
 message/http, "base64", 0
 message/imdn+xml, "base64", 0
+message/mls, "base64", 0
 message/news, "8bit", 0
+message/ohttp-chunked-req, "base64", 0
+message/ohttp-chunked-res, "base64", 0
+message/ohttp-req, "base64", 0
+message/ohttp-res, "base64", 0
 message/partial, "8bit", 0
 message/rfc822, "8bit", "eml mime"
 message/s-http, "base64", 0
@@ -1730,24 +2723,49 @@ message/sipfrag, "base64", 0
 message/tracking-status, "base64", 0
 message/vnd.si.simp, "base64", 0
 message/vnd.wfa.wsc, "base64", 0
+message/x-emlx, "base64", "emlx"
+model/3mf, "base64", 0
+model/JT, "base64", 0
+model/e57, "base64", "e57"
 model/example, "base64", 0
+model/gltf+json, "base64", 0
+model/gltf-binary, "base64", 0
 model/iges, "base64", "igs iges"
 model/mesh, "base64", "msh mesh silo"
+model/mtl, "base64", 0
+model/obj, "base64", 0
+model/prc, "base64", 0
+model/step, "base64", 0
+model/step+xml, "base64", 0
+model/step+zip, "base64", 0
+model/step-xml+zip, "base64", 0
+model/stl, "base64", 0
+model/u3d, "base64", 0
+model/vnd.bary, "base64", 0
+model/vnd.cld, "base64", 0
 model/vnd.collada+xml, "base64", "dae"
 model/vnd.dwf, "base64", "dwf"
+model/vnd.dwfx+xps, "base64", "dwfx"
 model/vnd.flatland.3dml, "base64", 0
 model/vnd.gdl, "base64", "gdl"
 model/vnd.gs-gdl, "base64", 0
+model/vnd.gs.gdl, "base64", 0
 model/vnd.gtw, "base64", "gtw"
 model/vnd.moml+xml, "base64", 0
 model/vnd.mts, "base64", "mts"
 model/vnd.opengex, "base64", 0
 model/vnd.parasolid.transmit.binary, "base64", "x_b xmt_bin"
 model/vnd.parasolid.transmit.text, "quoted-printable", "x_t xmt_txt"
+model/vnd.pytha.pyox, "base64", 0
 model/vnd.rosette.annotated-data-model, "base64", 0
+model/vnd.sap.vds, "base64", 0
+model/vnd.usda, "base64", 0
+model/vnd.usdz+zip, "base64", 0
 model/vnd.valve.source.compiled-map, "base64", 0
 model/vnd.vtu, "base64", "vtu"
 model/vrml, "base64", "wrl vrml"
+model/x.stl-ascii, "base64", 0
+model/x.stl-binary, "base64", "stl"
 model/x3d+binary, "base64", "x3db x3dbz"
 model/x3d+fastinfoset, "base64", 0
 model/x3d+vrml, "base64", "x3dv x3dvz"
@@ -1762,10 +2780,12 @@ multipart/example, "base64", 0
 multipart/form-data, "base64", 0
 multipart/header-set, "base64", 0
 multipart/mixed, "8bit", 0
+multipart/multilingual, "base64", 0
 multipart/parallel, "8bit", 0
-multipart/related, "base64", 0
+multipart/related, "base64", "mht mhtml"
 multipart/report, "base64", 0
 multipart/signed, "base64", 0
+multipart/vnd.bint.med-plus, "base64", 0
 multipart/voice-message, "base64", 0
 multipart/x-gzip, "base64", 0
 multipart/x-mixed-replace, "base64", 0
@@ -1775,35 +2795,59 @@ multipart/x-ustar, "base64", 0
 multipart/x-www-form-urlencoded, "base64", 0
 multipart/x-zip, "base64", 0
 text/1d-interleaved-parityfec, "quoted-printable", 0
+text/RED, "quoted-printable", 0
+text/asciidoc, "quoted-printable", 0
+text/asp, "quoted-printable", "asp"
+text/aspdotnet, "quoted-printable", "aspx"
 text/cache-manifest, "quoted-printable", "appcache manifest"
 text/calendar, "quoted-printable", "ics ifb"
+text/cmcd, "quoted-printable", 0
 text/comma-separated-values, "8bit", "csv"
+text/cql, "quoted-printable", 0
+text/cql-expression, "quoted-printable", 0
+text/cql-identifier, "quoted-printable", 0
 text/css, "8bit", "css"
 text/csv, "8bit", "csv"
 text/csv-schema, "quoted-printable", 0
 text/directory, "quoted-printable", 0
 text/dns, "quoted-printable", 0
-text/ecmascript, "quoted-printable", 0
+text/ecmascript, "quoted-printable", "es ecma"
 text/encaprtp, "quoted-printable", 0
 text/enriched, "quoted-printable", 0
+text/event-stream, "8bit", 0
 text/example, "quoted-printable", 0
+text/fhirpath, "quoted-printable", 0
+text/flexfec, "quoted-printable", 0
 text/fwdred, "quoted-printable", 0
+text/gff3, "quoted-printable", 0
 text/grammar-ref-list, "quoted-printable", 0
+text/hl7v2, "quoted-printable", 0
 text/html, "8bit", "html htm htmlx shtml htx"
-text/javascript, "quoted-printable", "js"
+text/iso19139+xml, "quoted-printable", "iso19139"
+text/javascript, "quoted-printable", "js mjs cjs"
+text/javascript1.0, "quoted-printable", 0
+text/javascript1.1, "quoted-printable", 0
+text/javascript1.2, "quoted-printable", 0
+text/javascript1.3, "quoted-printable", 0
+text/javascript1.4, "quoted-printable", 0
 text/jcr-cnd, "quoted-printable", 0
-text/markdown, "quoted-printable", 0
+text/jscript, "quoted-printable", 0
+text/livescript, "quoted-printable", 0
+text/markdown, "quoted-printable", "markdown md mkd mdtext"
 text/mizar, "quoted-printable", 0
 text/n3, "quoted-printable", "n3"
+text/nfo, "quoted-printable", 0
+text/org, "quoted-printable", 0
 text/parameters, "quoted-printable", 0
 text/parityfec, "quoted-printable", 0
-text/plain, "quoted-printable", "txt asc c cc h hh cpp hpp dat hlp conf def doc in list log markdown md rst text textile"
+text/ping, "8bit", 0
+text/plain, "quoted-printable", "txt asc c cc h hh cpp hpp dat hlp conf def in list log rst text textile install keys license notice readme abs-linkmap abs-menulinks aart ac am apt bsh classpath cnd cwiki data dcl dsp dsw egrm ent ft fn fv grm g .htaccess handlers htc ihtml jmx junit jx manifest m4 mf meta mdo n3 pen pod pom project rng rnx roles schemas tld types vm vsl wsdd xargs xcat xegrm xgrm xlex xlog xmap xroles xsamples xsp xtest xweb xwelcome"
 text/provenance-notation, "quoted-printable", 0
 text/prs.fallenstein.rst, "quoted-printable", "rst"
 text/prs.lines.tag, "quoted-printable", "dsc"
 text/prs.prop.logic, "quoted-printable", 0
+text/prs.texi, "quoted-printable", 0
 text/raptorfec, "quoted-printable", 0
-text/RED, "quoted-printable", 0
 text/rfc822-headers, "quoted-printable", 0
 text/richtext, "8bit", "rtx"
 text/rtf, "8bit", "rtf"
@@ -1811,74 +2855,166 @@ text/rtp-enc-aescm128, "quoted-printable", 0
 text/rtploopback, "quoted-printable", 0
 text/rtx, "quoted-printable", 0
 text/sgml, "quoted-printable", "sgml sgm"
+text/shaclc, "quoted-printable", 0
+text/shex, "quoted-printable", 0
+text/spdx, "quoted-printable", 0
+text/strings, "quoted-printable", 0
 text/t140, "quoted-printable", 0
 text/tab-separated-values, "quoted-printable", "tsv"
-text/troff, "8bit", "t tr roff troff man me ms"
+text/troff, "8bit", "t tr roff troff man me ms nroff"
 text/turtle, "quoted-printable", "ttl"
 text/ulpfec, "quoted-printable", 0
 text/uri-list, "quoted-printable", "uri uris urls"
 text/vcard, "quoted-printable", "vcard"
+text/vnd.DMClientScript, "quoted-printable", 0
+text/vnd.IPTC.NITF, "quoted-printable", 0
+text/vnd.IPTC.NewsML, "quoted-printable", 0
 text/vnd.a, "quoted-printable", 0
 text/vnd.abc, "quoted-printable", 0
+text/vnd.ascii-art, "quoted-printable", 0
 text/vnd.curl, "quoted-printable", "curl"
 text/vnd.curl.dcurl, "quoted-printable", "dcurl"
 text/vnd.curl.mcurl, "quoted-printable", "mcurl"
 text/vnd.curl.scurl, "quoted-printable", "scurl"
 text/vnd.debian.copyright, "quoted-printable", 0
-text/vnd.DMClientScript, "quoted-printable", 0
 text/vnd.dvb.subtitle, "quoted-printable", "sub"
 text/vnd.esmertec.theme-descriptor, "quoted-printable", 0
+text/vnd.exchangeable, "quoted-printable", 0
+text/vnd.familysearch.gedcom, "quoted-printable", 0
+text/vnd.ficlab.flt, "quoted-printable", 0
 text/vnd.flatland.3dml, "quoted-printable", 0
 text/vnd.fly, "quoted-printable", "fly"
 text/vnd.fmi.flexstor, "quoted-printable", "flx"
+text/vnd.gist.mx, "quoted-printable", 0
+text/vnd.gml, "quoted-printable", 0
 text/vnd.graphviz, "quoted-printable", "gv"
+text/vnd.hans, "quoted-printable", 0
+text/vnd.hekaya, "quoted-printable", 0
+text/vnd.hgl, "quoted-printable", 0
 text/vnd.in3d.3dml, "quoted-printable", "3dml"
 text/vnd.in3d.spot, "quoted-printable", "spot"
-text/vnd.IPTC.NewsML, "quoted-printable", 0
-text/vnd.IPTC.NITF, "quoted-printable", 0
+text/vnd.iptc.anpa, "quoted-printable", "anpa"
 text/vnd.latex-z, "quoted-printable", 0
+text/vnd.longform, "quoted-printable", 0
 text/vnd.motorola.reflex, "quoted-printable", 0
 text/vnd.ms-mediapackage, "quoted-printable", 0
 text/vnd.net2phone.commcenter.command, "quoted-printable", "ccc"
 text/vnd.radisys.msml-basic-layout, "quoted-printable", 0
+text/vnd.senx.warpscript, "quoted-printable", 0
 text/vnd.si.uricatalogue, "quoted-printable", 0
+text/vnd.sosi, "quoted-printable", 0
 text/vnd.sun.j2me.app-descriptor, "8bit", "jad"
+text/vnd.tps, "quoted-printable", 0
 text/vnd.trolltech.linguist, "quoted-printable", 0
+text/vnd.typst, "quoted-printable", 0
+text/vnd.vcf, "quoted-printable", 0
+text/vnd.vri, "quoted-printable", 0
 text/vnd.wap.si, "quoted-printable", "si"
 text/vnd.wap.sl, "quoted-printable", "sl"
 text/vnd.wap.wml, "quoted-printable", "wml"
 text/vnd.wap.wmlscript, "quoted-printable", "wmls"
+text/vnd.zoo.kcl, "quoted-printable", 0
+text/vtt, "quoted-printable", "vtt"
+text/wgsl, "quoted-printable", 0
+text/x-actionscript, "quoted-printable", "as"
+text/x-ada, "quoted-printable", "ada adb ads"
+text/x-applescript, "quoted-printable", "applescript"
+text/x-asciidoc, "quoted-printable", "asciidoc adoc ad ad.txt adoc.txt"
 text/x-asm, "quoted-printable", "asm s"
+text/x-aspectj, "quoted-printable", "aj"
+text/x-assembly, "quoted-printable", "s asm"
+text/x-awk, "quoted-printable", "awk"
+text/x-basic, "quoted-printable", "bas"
 text/x-c, "quoted-printable", "c cc cpp cxx dic h hh"
+text/x-c++hdr, "quoted-printable", "hpp hxx hh h h++ hp"
+text/x-c++src, "quoted-printable", "cpp cxx cc c c++"
+text/x-cgi, "quoted-printable", "cgi"
+text/x-chdr, "quoted-printable", "h"
+text/x-clojure, "quoted-printable", "clj"
+text/x-cobol, "quoted-printable", "cbl cob"
+text/x-coffeescript, "quoted-printable", "coffee"
 text/x-coffescript, "8bit", "coffee"
+text/x-coldfusion, "quoted-printable", "cfm cfml cfc"
+text/x-common-lisp, "quoted-printable", "cl jl lisp lsp"
 text/x-component, "8bit", "htc"
+text/x-config, "quoted-printable", "config conf cfg xconf"
+text/x-csharp, "quoted-printable", "cs"
+text/x-csrc, "quoted-printable", "c"
+text/x-d, "quoted-printable", "d"
+text/x-diff, "quoted-printable", "diff patch"
+text/x-ecmascript, "quoted-printable", 0
+text/x-eiffel, "quoted-printable", "e"
+text/x-emacs-lisp, "quoted-printable", "el"
+text/x-erlang, "quoted-printable", "erl"
+text/x-expect, "quoted-printable", "exp"
+text/x-forth, "quoted-printable", "4th"
 text/x-fortran, "quoted-printable", "f f77 f90 for"
+text/x-go, "quoted-printable", "go"
+text/x-groovy, "quoted-printable", "groovy"
+text/x-haml, "quoted-printable", "haml"
+text/x-haskell, "quoted-printable", "hs lhs"
+text/x-haxe, "quoted-printable", "hx"
+text/x-idl, "quoted-printable", "idl"
+text/x-ini, "quoted-printable", "ini"
+text/x-java-properties, "quoted-printable", "properties"
 text/x-java-source, "quoted-printable", "java"
+text/x-jsp, "quoted-printable", "jsp"
+text/x-less, "quoted-printable", "less"
+text/x-lex, "quoted-printable", "l"
+text/x-log, "quoted-printable", "log"
+text/x-lua, "quoted-printable", "lua"
+text/x-makefile, "quoted-printable", "makefile gnumakefile"
+text/x-matlab, "quoted-printable", 0
+text/x-ml, "quoted-printable", "ml"
+text/x-modula, "quoted-printable", "m3 i3 mg ig"
 text/x-nfo, "quoted-printable", "nfo"
+text/x-objcsrc, "quoted-printable", "m"
+text/x-ocaml, "quoted-printable", "ocaml mli"
 text/x-opml, "quoted-printable", "opml"
-text/x-pascal, "quoted-printable", "p pas"
+text/x-pascal, "quoted-printable", "p pas pp dpr"
+text/x-perl, "quoted-printable", "pl pm al perl"
+text/x-php, "quoted-printable", "php php3 php4"
+text/x-prolog, "quoted-printable", "pro"
+text/x-python, "quoted-printable", "py"
+text/x-rexx, "quoted-printable", "rexx"
+text/x-robots, "quoted-printable", 0
+text/x-rsrc, "quoted-printable", "r"
+text/x-rst, "quoted-printable", "rest rst restx"
 text/x-rtf, "8bit", "rtf"
+text/x-ruby, "quoted-printable", "rb"
+text/x-scala, "quoted-printable", "scala"
+text/x-scheme, "quoted-printable", "scm"
+text/x-sed, "quoted-printable", "sed"
 text/x-setext, "quoted-printable", "etx"
 text/x-sfv, "quoted-printable", "sfv"
+text/x-sql, "quoted-printable", "sql"
+text/x-stsrc, "quoted-printable", "st"
+text/x-tcl, "quoted-printable", "itk tcl tk"
+text/x-tika-text-based-message, "quoted-printable", 0
 text/x-uuencode, "quoted-printable", "uu"
+text/x-vbasic, "quoted-printable", "cls frm"
+text/x-vbdotnet, "quoted-printable", "vb"
+text/x-vbscript, "quoted-printable", "vbs"
 text/x-vcalendar, "8bit", "vcs"
 text/x-vcard, "8bit", "vcf"
+text/x-verilog, "quoted-printable", "v"
+text/x-vhdl, "quoted-printable", "vhd vhdl"
 text/x-vnd.flatland.3dml, "quoted-printable", 0
+text/x-web-markdown, "quoted-printable", "md mdtext mkd markdown"
+text/x-yacc, "quoted-printable", "y"
 text/x-yaml, "8bit", "yaml yml"
-text/xml, "8bit", "xml dtd"
+text/xml, "8bit", "xml dtd xsd"
 text/xml-external-parsed-entity, "quoted-printable", 0
 video/1d-interleaved-parityfec, "base64", 0
 video/3gpp, "base64", "3gp 3gpp"
 video/3gpp-tt, "base64", 0
 video/3gpp2, "base64", "3g2 3gpp2"
+video/AV1, "base64", 0
 video/BMPEG, "base64", 0
 video/BT656, "base64", 0
 video/CelB, "base64", 0
-video/dl, "base64", "dl"
 video/DV, "base64", "dv"
-video/encaprtp, "base64", 0
-video/example, "base64", 0
-video/gl, "base64", "gl"
+video/FFV1, "base64", 0
 video/H261, "base64", "h261"
 video/H263, "base64", "h263"
 video/H263-1998, "base64", 0
@@ -1887,19 +3023,35 @@ video/H264, "base64", "h264"
 video/H264-RCDO, "base64", 0
 video/H264-SVC, "base64", 0
 video/H265, "base64", 0
-video/iso.segment, "base64", 0
+video/H266, "base64", 0
 video/JPEG, "base64", "jpgv"
-video/jpeg2000, "base64", 0
-video/jpm, "base64", "jpgm jpm"
 video/MJ2, "base64", "mj2 mjp2"
 video/MP1S, "base64", 0
 video/MP2P, "base64", 0
-video/MP2T, "base64", "ts"
-video/mp4, "base64", "mp4 mpg4 f4v f4p mp4v"
+video/MP2T, "base64", "ts mts m2ts cpi clpi mpl mpls bdm m2t"
 video/MP4V-ES, "base64", 0
+video/MPV, "base64", 0
+video/SMPTE292M, "base64", 0
+video/VP8, "base64", 0
+video/VP9, "base64", 0
+video/daala, "base64", 0
+video/dl, "base64", "dl"
+video/encaprtp, "base64", 0
+video/evc, "base64", 0
+video/example, "base64", 0
+video/flexfec, "base64", 0
+video/gl, "base64", "gl"
+video/iso.segment, "base64", "m4s"
+video/jpeg2000, "base64", 0
+video/jpeg2000-scl, "base64", 0
+video/jpm, "base64", "jpgm jpm"
+video/jxsv, "base64", 0
+video/lottie+json, "base64", 0
+video/matroska, "base64", 0
+video/matroska-3d, "base64", 0
+video/mp4, "base64", "mp4 mpg4 f4v f4p mp4v"
 video/mpeg, "base64", "mp2 mp3g mpe mpeg mpg m1v m2v"
 video/mpeg4-generic, "base64", 0
-video/MPV, "base64", 0
 video/nv, "base64", 0
 video/ogg, "base64", "ogg ogv"
 video/parityfec, "base64", 0
@@ -1910,10 +3062,14 @@ video/raw, "base64", 0
 video/rtp-enc-aescm128, "base64", 0
 video/rtploopback, "base64", 0
 video/rtx, "base64", 0
-video/SMPTE292M, "base64", 0
+video/scip, "base64", 0
+video/smpte291, "base64", 0
+video/theora, "base64", 0
 video/ulpfec, "base64", 0
 video/vc1, "base64", 0
+video/vc2, "base64", 0
 video/vnd.CCTV, "base64", 0
+video/vnd.blockfact.factv, "base64", 0
 video/vnd.dece.hd, "base64", "uvh uvvh"
 video/vnd.dece.mobile, "base64", "uvm uvvm"
 video/vnd.dece.mp4, "base64", 0
@@ -1937,8 +3093,10 @@ video/vnd.motorola.videop, "base64", 0
 video/vnd.mpegurl, "8bit", "mxu m4u"
 video/vnd.ms-playready.media.pyv, "base64", "pyv"
 video/vnd.nokia.interleaved-multimedia, "base64", "nim"
+video/vnd.nokia.mp4vr, "base64", 0
 video/vnd.nokia.videovoip, "base64", 0
 video/vnd.objectvideo, "base64", "mp4 m4v"
+video/vnd.planar, "base64", 0
 video/vnd.radgamettools.bink, "base64", 0
 video/vnd.radgamettools.smacker, "base64", 0
 video/vnd.sealed.mpeg1, "base64", "s11"
@@ -1947,15 +3105,18 @@ video/vnd.sealed.swf, "base64", "sswf ssw"
 video/vnd.sealedmedia.softseal.mov, "base64", "smov smo s1q"
 video/vnd.uvvu.mp4, "base64", "uvu uvvu"
 video/vnd.vivo, "base64", "viv vivo"
-video/VP8, "base64", 0
+video/vnd.youtube.yt, "base64", 0
 video/webm, "base64", "webm"
+video/x-dirac, "base64", "drc"
 video/x-dl, "base64", "dl"
 video/x-dv, "base64", "dv"
 video/x-f4v, "base64", "f4v"
+video/x-flc, "base64", "flc"
 video/x-fli, "base64", "fli"
 video/x-flv, "base64", "flv"
 video/x-gl, "base64", "gl"
 video/x-ivf, "base64", "ivf"
+video/x-jng, "base64", "jng"
 video/x-m4v, "base64", "m4v"
 video/x-matroska, "base64", "mk3d mks mkv"
 video/x-mng, "base64", "mng"
@@ -1967,6 +3128,10 @@ video/x-ms-wmv, "base64", "wmv"
 video/x-ms-wmx, "base64", "wmx"
 video/x-ms-wvx, "base64", "wvx"
 video/x-msvideo, "base64", "avi"
+video/x-oggrgb, "base64", 0
+video/x-ogguvs, "base64", 0
+video/x-oggyuv, "base64", 0
+video/x-ogm, "base64", "ogm"
 video/x-sgi-movie, "base64", "movie"
 video/x-smv, "base64", "smv"
 x-chemical/x-pdb, "base64", "pdb"
