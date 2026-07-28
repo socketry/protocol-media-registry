@@ -34,7 +34,7 @@ end
 def generate
 	require_relative "tasks/generator"
 	
-	Protocol::Media::Data::Generator.load(__dir__).generate
+	Protocol::Media::Registry::Generator.load(__dir__).generate
 end
 
 # Create a GitHub release for the given tag.

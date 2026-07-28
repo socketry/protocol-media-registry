@@ -8,7 +8,7 @@ return if RUBY_DESCRIPTION =~ /jruby/
 
 require "mkmf"
 
-extension_name = "Protocol_Media_Data"
+extension_name = "Protocol_Media_Registry"
 
 append_cflags(["-Wall", "-Wno-unknown-pragmas", "-std=c99"])
 
@@ -18,8 +18,8 @@ if ENV.key?("RUBY_DEBUG")
 	append_cflags(["-DRUBY_DEBUG", "-O0"])
 end
 
-$srcs = ["protocol/media/data/native.c"]
-$VPATH << "$(srcdir)/protocol/media/data"
+$srcs = ["protocol/media/registry/native.c"]
+$VPATH << "$(srcdir)/protocol/media/registry"
 
 if ENV.key?("RUBY_SANITIZE")
 	$stderr.puts "Enabling sanitizers..."

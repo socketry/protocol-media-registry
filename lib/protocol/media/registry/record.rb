@@ -5,7 +5,7 @@
 
 module Protocol
 	module Media
-		module Data
+		module Registry
 			# A media type and its associated registry metadata.
 			class Record
 				# @attribute [Protocol::Media::Type] The media type.

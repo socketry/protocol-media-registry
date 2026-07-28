@@ -7,7 +7,7 @@
 
 module Protocol
 	module Media
-		module Data
+		module Registry
 			RECORDS = {
 				"application/1d-interleaved-parityfec" => ["application/1d-interleaved-parityfec", "base64", nil],
 				"application/1ob" => ["application/1ob", "base64", nil],

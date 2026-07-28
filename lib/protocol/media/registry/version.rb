@@ -8,7 +8,7 @@ module Protocol
 	# Models media types used by internet protocols and data formats.
 	module Media
 		# @namespace
-		module Data
+		module Registry
 			VERSION = "0.1.0"
 		end
 	end

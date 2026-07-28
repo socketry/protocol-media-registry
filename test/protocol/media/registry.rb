@@ -3,19 +3,19 @@
 # Released under the MIT License.
 # Copyright, 2026, by Samuel Williams.
 
-require "protocol/media/data"
+require "protocol/media/registry"
 
-describe Protocol::Media::Data do
+describe Protocol::Media::Registry do
 	if RUBY_ENGINE == "ruby"
 		it "uses the native index" do
-			expect(Protocol::Media::Data::Index).to be == Protocol::Media::Data::Native
+			expect(Protocol::Media::Registry::Index).to be == Protocol::Media::Registry::Native
 		end
 	end
 	
 	it "looks up a media type by name" do
 		record = subject["application/json"]
 		
-		expect(record).to be_a(Protocol::Media::Data::Record)
+		expect(record).to be_a(Protocol::Media::Registry::Record)
 		expect(record.type).to be_a(Protocol::Media::Type)
 		expect(record.type.name).to be == "application/json"
 		expect(record.extensions).to be(:include?, "json")

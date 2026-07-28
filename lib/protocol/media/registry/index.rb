@@ -4,13 +4,13 @@
 # Copyright, 2026, by Samuel Williams.
 
 begin
-	require "Protocol_Media_Data"
+	require "Protocol_Media_Registry"
 rescue LoadError
 	require_relative "ruby"
 	
 	module Protocol
 		module Media
-			module Data
+			module Registry
 				Index = Ruby
 			end
 		end
@@ -18,7 +18,7 @@ rescue LoadError
 else
 	module Protocol
 		module Media
-			module Data
+			module Registry
 				Index = Native
 			end
 		end

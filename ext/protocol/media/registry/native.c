@@ -6,7 +6,7 @@
 #include "extensions.h"
 #include "records.h"
 
-static VALUE Protocol_Media_Data_lookup(VALUE _self, VALUE name)
+static VALUE Protocol_Media_Registry_lookup(VALUE _self, VALUE name)
 {
 	StringValue(name);
 	
@@ -26,7 +26,7 @@ static VALUE Protocol_Media_Data_lookup(VALUE _self, VALUE name)
 	return result;
 }
 
-static VALUE Protocol_Media_Data_lookup_extension(VALUE _self, VALUE extension)
+static VALUE Protocol_Media_Registry_lookup_extension(VALUE _self, VALUE extension)
 {
 	StringValue(extension);
 	
@@ -36,13 +36,13 @@ static VALUE Protocol_Media_Data_lookup_extension(VALUE _self, VALUE extension)
 	return rb_str_new_cstr(record->name);
 }
 
-void Init_Protocol_Media_Data(void)
+void Init_Protocol_Media_Registry(void)
 {
 	VALUE protocol = rb_define_module("Protocol");
 	VALUE media = rb_define_module_under(protocol, "Media");
-	VALUE data = rb_define_module_under(media, "Data");
-	VALUE native = rb_define_module_under(data, "Native");
+	VALUE registry = rb_define_module_under(media, "Registry");
+	VALUE native = rb_define_module_under(registry, "Native");
 	
-	rb_define_singleton_method(native, "lookup", Protocol_Media_Data_lookup, 1);
-	rb_define_singleton_method(native, "lookup_extension", Protocol_Media_Data_lookup_extension, 1);
+	rb_define_singleton_method(native, "lookup", Protocol_Media_Registry_lookup, 1);
+	rb_define_singleton_method(native, "lookup_extension", Protocol_Media_Registry_lookup_extension, 1);
 }

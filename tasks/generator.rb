@@ -9,7 +9,7 @@ require "open3"
 
 module Protocol
 	module Media
-		module Data
+		module Registry
 			# Generates static indexes from the mime-types-data registry.
 			class Generator
 				# Load the currently installed mime-types-data registry.
@@ -50,7 +50,7 @@ module Protocol
 				end
 				
 				def generate_ruby
-					path = File.join(@destination, "lib/protocol/media/data/records.rb")
+					path = File.join(@destination, "lib/protocol/media/registry/records.rb")
 					FileUtils.mkdir_p(File.dirname(path))
 					
 					File.open(path, "w") do |output|
@@ -64,7 +64,7 @@ module Protocol
 							
 							module Protocol
 							\tmodule Media
-							\t\tmodule Data
+							\t\tmodule Registry
 							\t\t\tRECORDS = {
 						RUBY
 						
@@ -88,8 +88,8 @@ module Protocol
 				end
 				
 				def generate_gperf
-					extension_path = File.join(@destination, "ext/protocol/media/data/extensions.gperf")
-					record_path = File.join(@destination, "ext/protocol/media/data/records.gperf")
+					extension_path = File.join(@destination, "ext/protocol/media/registry/extensions.gperf")
+					record_path = File.join(@destination, "ext/protocol/media/registry/records.gperf")
 					FileUtils.mkdir_p(File.dirname(extension_path))
 					
 					File.open(extension_path, "w") do |output|

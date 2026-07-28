@@ -5,14 +5,14 @@
 
 require "protocol/media/type"
 
-require_relative "data/version"
-require_relative "data/index"
-require_relative "data/record"
+require_relative "registry/version"
+require_relative "registry/index"
+require_relative "registry/record"
 
 module Protocol
 	module Media
 		# Provides indexed access to registered media type data.
-		module Data
+		module Registry
 			# Look up a media type by name.
 			#
 			# @parameter name [String] The complete media type name.

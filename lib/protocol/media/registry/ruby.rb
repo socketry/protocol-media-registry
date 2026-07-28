@@ -7,7 +7,7 @@ require_relative "records"
 
 module Protocol
 	module Media
-		module Data
+		module Registry
 			# Pure Ruby media type index.
 			module Ruby
 				# Look up the raw record for a media type name.

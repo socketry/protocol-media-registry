@@ -3,9 +3,9 @@
 # Released under the MIT License.
 # Copyright, 2026, by Samuel Williams.
 
-require "protocol/media/data/ruby"
+require "protocol/media/registry/ruby"
 
-describe Protocol::Media::Data::Ruby do
+describe Protocol::Media::Registry::Ruby do
 	it "looks up raw records" do
 		record = subject.lookup("text/plain")
 		
