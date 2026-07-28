@@ -4,7 +4,7 @@
 # Copyright, 2026, by Samuel Williams.
 
 begin
-	require "protocol/media/data/native"
+	require "Protocol_Media_Data"
 rescue LoadError
 	require_relative "ruby"
 	

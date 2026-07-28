@@ -5,6 +5,7 @@
 
 require "json"
 require "fileutils"
+require "open3"
 
 module Protocol
 	module Media
@@ -109,8 +110,19 @@ module Protocol
 						end
 					end
 					
-					system("gperf", "-CDt", extension_path, "--output-file", extension_path.sub(/\.gperf\z/, ".h"), exception: true)
-					system("gperf", "-Ct", record_path, "--output-file", record_path.sub(/\.gperf\z/, ".h"), exception: true)
+					generate_gperf_header(extension_path, "-CDt")
+					generate_gperf_header(record_path, "-Ct")
+				end
+				
+				def generate_gperf_header(path, *arguments)
+					output, error, status = Open3.capture3("gperf", *arguments, File.basename(path), chdir: File.dirname(path))
+					
+					unless status.success?
+						raise "Could not generate #{path}: #{error}"
+					end
+					
+					output.sub!(/^\/\* Command-line:.*\*\/\n/, "")
+					File.write(path.sub(/\.gperf\z/, ".h"), output)
 				end
 			end
 		end

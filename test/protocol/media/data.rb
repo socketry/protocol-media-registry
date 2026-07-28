@@ -6,6 +6,12 @@
 require "protocol/media/data"
 
 describe Protocol::Media::Data do
+	if RUBY_ENGINE == "ruby"
+		it "uses the native index" do
+			expect(Protocol::Media::Data::Index).to be == Protocol::Media::Data::Native
+		end
+	end
+	
 	it "looks up a media type by name" do
 		record = subject["application/json"]
 		

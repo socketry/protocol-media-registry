@@ -3,6 +3,33 @@
 # Released under the MIT License.
 # Copyright, 2026, by Samuel Williams.
 
+# Build the native extension.
+def build
+	ext_path = File.expand_path("ext", __dir__)
+	
+	Dir.chdir(ext_path) do
+		system("ruby ./extconf.rb") or raise "extconf.rb failed"
+		
+		if File.exist?("Makefile")
+			system("make") or raise "make failed"
+		end
+	end
+end
+
+# Clean the native extension.
+def clean
+	ext_path = File.expand_path("ext", __dir__)
+	
+	Dir.chdir(ext_path) do
+		system("make clean") if File.exist?("Makefile")
+	end
+end
+
+# Build the native extension before running tests.
+def before_test
+	self.build
+end
+
 # Regenerate the static media type indexes.
 def generate
 	require_relative "tasks/generator"

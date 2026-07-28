@@ -1,12 +1,13 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-#include "ruby.h"
+#include <ruby.h>
 
 #include "extensions.h"
 #include "records.h"
 
-static VALUE lookup(VALUE self, VALUE name) {
+static VALUE Protocol_Media_Data_lookup(VALUE _self, VALUE name)
+{
 	StringValue(name);
 	
 	const struct MediaTypeRecord *record = lookup_record(RSTRING_PTR(name), (unsigned int)RSTRING_LEN(name));
@@ -25,7 +26,8 @@ static VALUE lookup(VALUE self, VALUE name) {
 	return result;
 }
 
-static VALUE lookup_extension_name(VALUE self, VALUE extension) {
+static VALUE Protocol_Media_Data_lookup_extension(VALUE _self, VALUE extension)
+{
 	StringValue(extension);
 	
 	const struct ExtensionRecord *record = lookup_extension(RSTRING_PTR(extension), (unsigned int)RSTRING_LEN(extension));
@@ -34,12 +36,13 @@ static VALUE lookup_extension_name(VALUE self, VALUE extension) {
 	return rb_str_new_cstr(record->name);
 }
 
-void Init_native(void) {
+void Init_Protocol_Media_Data(void)
+{
 	VALUE protocol = rb_define_module("Protocol");
 	VALUE media = rb_define_module_under(protocol, "Media");
 	VALUE data = rb_define_module_under(media, "Data");
 	VALUE native = rb_define_module_under(data, "Native");
 	
-	rb_define_singleton_method(native, "lookup", lookup, 1);
-	rb_define_singleton_method(native, "lookup_extension", lookup_extension_name, 1);
+	rb_define_singleton_method(native, "lookup", Protocol_Media_Data_lookup, 1);
+	rb_define_singleton_method(native, "lookup_extension", Protocol_Media_Data_lookup_extension, 1);
 }
