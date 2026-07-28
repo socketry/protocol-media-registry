@@ -18,7 +18,7 @@ describe Protocol::Media::Registry do
 		protocol = Module.new
 		fallback = Module.new
 		
-		registry.const_set(:Ruby, fallback)
+		registry.const_set(:Fallback, fallback)
 		media.const_set(:Registry, registry)
 		protocol.const_set(:Media, media)
 		

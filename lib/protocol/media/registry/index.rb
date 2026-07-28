@@ -6,12 +6,12 @@
 begin
 	require "Protocol_Media_Registry"
 rescue LoadError
-	require_relative "ruby"
+	require_relative "fallback"
 	
 	module Protocol
 		module Media
 			module Registry
-				Index = Ruby
+				Index = Fallback
 			end
 		end
 	end

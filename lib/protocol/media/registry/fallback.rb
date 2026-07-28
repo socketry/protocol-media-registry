@@ -8,8 +8,8 @@ require_relative "records"
 module Protocol
 	module Media
 		module Registry
-			# Pure Ruby media type index.
-			module Ruby
+			# Pure Ruby fallback for media type lookup.
+			module Fallback
 				# Look up the raw record for a media type name.
 				def self.lookup(name)
 					RECORDS[name]
