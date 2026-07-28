@@ -12,6 +12,27 @@ describe Protocol::Media::Registry do
 		end
 	end
 	
+	it "falls back to the Ruby index" do
+		registry = Module.new
+		media = Module.new
+		protocol = Module.new
+		fallback = Module.new
+		
+		registry.const_set(:Ruby, fallback)
+		media.const_set(:Registry, registry)
+		protocol.const_set(:Media, media)
+		
+		scope = Module.new
+		scope.const_set(:Protocol, protocol)
+		scope.define_singleton_method(:require){|name| raise LoadError, name}
+		scope.define_singleton_method(:require_relative){|name|}
+		
+		path = File.expand_path("../../../lib/protocol/media/registry/index.rb", __dir__)
+		scope.module_eval(File.read(path), path)
+		
+		expect(registry::Index).to be == fallback
+	end
+	
 	it "looks up a media type by name" do
 		record = subject["application/json"]
 		
