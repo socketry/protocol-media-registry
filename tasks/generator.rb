@@ -12,6 +12,10 @@ module Protocol
 		module Registry
 			# Generates static indexes from the mime-types-data registry.
 			class Generator
+				ADDITIONAL_EXTENSIONS = {
+					"application/json" => ["map"],
+				}.freeze
+				
 				# Load the currently installed mime-types-data registry.
 				def self.load(destination)
 					require "mime/types/data"
@@ -21,7 +25,7 @@ module Protocol
 				end
 				
 				def initialize(records, destination)
-					@records = records.sort_by{|record| record.fetch("content-type")}
+					@records = add_extensions(records).sort_by{|record| record.fetch("content-type")}
 					@destination = destination
 				end
 				
@@ -32,6 +36,25 @@ module Protocol
 				end
 				
 				private
+				
+				def add_extensions(records)
+					remaining = ADDITIONAL_EXTENSIONS.dup
+					
+					updated = records.map do |record|
+						if additions = remaining.delete(record.fetch("content-type"))
+							extensions = (record.fetch("extensions", []) + additions).uniq
+							record.merge("extensions" => extensions)
+						else
+							record
+						end
+					end
+					
+					unless remaining.empty?
+						raise KeyError, "Could not find media types for additional extensions: #{remaining.keys.join(", ")}"
+					end
+					
+					updated
+				end
 				
 				def extension_priority(record, extension)
 					priority = record.fetch("sort-priority", 0xff)

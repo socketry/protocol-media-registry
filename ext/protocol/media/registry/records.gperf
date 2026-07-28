@@ -300,7 +300,7 @@ application/jose+json, "base64", 0
 application/jrd+json, "base64", 0
 application/jscalendar+json, "base64", 0
 application/jscontact+json, "base64", 0
-application/json, "8bit", "json"
+application/json, "8bit", "json map"
 application/json-nd, "base64", 0
 application/json-patch+json, "base64", 0
 application/json-patch-query+json, "base64", 0

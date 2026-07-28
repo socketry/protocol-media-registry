@@ -2841,7 +2841,7 @@ lookup_record (register const char *str, register unsigned int len)
 #line 1790 "records.gperf"
       {"application/vnd.uplanet.alert", "base64", 0},
 #line 303 "records.gperf"
-      {"application/json", "8bit", "json"},
+      {"application/json", "8bit", "json map"},
 #line 158 "records.gperf"
       {"application/cnrp+xml", "base64", 0},
 #line 962 "records.gperf"

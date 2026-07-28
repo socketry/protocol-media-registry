@@ -40,12 +40,14 @@ describe Protocol::Media::Registry do
 		expect(record.type).to be_a(Protocol::Media::Type)
 		expect(record.type.name).to be == "application/json"
 		expect(record.extensions).to be(:include?, "json")
+		expect(record.extensions).to be(:include?, "map")
 	end
 	
 	it "looks up a media type by extension" do
 		record = subject.for_extension(".html")
 		
 		expect(record.type.name).to be == "text/html"
+		expect(subject.for_extension(".map").type.name).to be == "application/json"
 	end
 	
 	it "prefers the highest priority type for an extension" do

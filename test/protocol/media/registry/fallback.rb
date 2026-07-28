@@ -10,10 +10,12 @@ describe Protocol::Media::Registry::Fallback do
 		record = subject.lookup("text/plain")
 		
 		expect(record[2]).to be(:include?, "txt")
+		expect(subject.lookup("application/json")[2]).to be(:include?, "map")
 	end
 	
 	it "looks up extensions" do
 		expect(subject.lookup_extension("json")).to be == "application/json"
+		expect(subject.lookup_extension("map")).to be == "application/json"
 	end
 	
 	it "prefers a type's preferred extension" do
