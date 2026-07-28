@@ -1,0 +1,3 @@
+# Copyright, 2026, by Samuel Williams.
+
+native.o: $(srcdir)/protocol/media/registry/extensions.h $(srcdir)/protocol/media/registry/records.h

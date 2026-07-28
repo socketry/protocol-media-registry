@@ -33,15 +33,29 @@ module Protocol
 				
 				private
 				
+				def extension_priority(record, extension)
+					priority = record.fetch("sort-priority", 0xff)
+					preferred_extension = record["preferred-extension"] || record.fetch("extensions", []).first
+					
+					if extension == preferred_extension && (priority & 0b1000) != 0
+						priority = (priority & 0b11110111) | 0b0111
+					end
+					
+					[priority, record.fetch("content-type").downcase]
+				end
+				
 				def extensions
-					@extensions ||= @records.each_with_object(Hash.new{|hash, key| hash[key] = []}) do |record, extensions|
+					return @extensions if @extensions
+					
+					grouped = @records.each_with_object(Hash.new{|hash, key| hash[key] = []}) do |record, extensions|
 						record.fetch("extensions", []).each do |extension|
 							extensions[extension] << record
 						end
-					end.transform_values do |records|
-						records.min_by do |record|
-							[record.fetch("sort-priority", 100), record["registered"] ? 0 : 1, record.fetch("content-type")]
-						end.fetch("content-type")
+					end
+					
+					@extensions = grouped.to_h do |extension, records|
+						preferred = records.min_by{|record| extension_priority(record, extension)}
+						[extension, preferred.fetch("content-type")]
 					end
 				end
 				

@@ -120,7 +120,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 695 "extensions.gperf"
       {"m", "text/x-objcsrc"},
 #line 1110 "extensions.gperf"
-      {"s", "text/x-asm"},
+      {"s", "text/x-assembly"},
 #line 767 "extensions.gperf"
       {"mjs", "text/javascript"},
 #line 28 "extensions.gperf"
@@ -186,7 +186,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 942 "extensions.gperf"
       {"pbd", "application/vnd.powerbuilder6"},
 #line 755 "extensions.gperf"
-      {"mid", "audio/midi"},
+      {"mid", "audio/x-midi"},
 #line 219 "extensions.gperf"
       {"cnd", "text/plain"},
 #line 1196 "extensions.gperf"
@@ -372,7 +372,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 307 "extensions.gperf"
       {"dp", "application/vnd.osgi.dp"},
 #line 1246 "extensions.gperf"
-      {"spp", "application/vnd.sealed.ppt"},
+      {"spp", "application/scvp-vp-response"},
 #line 1091 "extensions.gperf"
       {"rnd", "application/prs.nprend"},
 #line 803 "extensions.gperf"
@@ -424,7 +424,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1254 "extensions.gperf"
       {"src", "application/x-wais-source"},
 #line 1312 "extensions.gperf"
-      {"tcl", "text/x-tcl"},
+      {"tcl", "application/x-tcl"},
 #line 1256 "extensions.gperf"
       {"srl", "application/sereal"},
 #line 1080 "extensions.gperf"
@@ -446,7 +446,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 816 "extensions.gperf"
       {"mpx", "application/x-project"},
 #line 1250 "extensions.gperf"
-      {"spx", "audio/ogg"},
+      {"spx", "audio/speex"},
 #line 234 "extensions.gperf"
       {"crt", "application/x-x509-ca-cert"},
 #line 1005 "extensions.gperf"
@@ -652,13 +652,13 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1169 "extensions.gperf"
       {"sem", "application/vnd.sealed.eml"},
 #line 1098 "extensions.gperf"
-      {"rpm", "audio/x-pn-realaudio-plugin"},
+      {"rpm", "application/x-rpm"},
 #line 1065 "extensions.gperf"
       {"rct", "application/prs.nprend"},
 #line 708 "extensions.gperf"
       {"m4", "text/plain"},
 #line 1488 "extensions.gperf"
-      {"wp5", "application/vnd.wordperfect"},
+      {"wp5", "application/wordperfect5.1"},
 #line 452 "extensions.gperf"
       {"fxp", "application/vnd.adobe.fxp"},
 #line 579 "extensions.gperf"
@@ -700,7 +700,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1063 "extensions.gperf"
       {"rbw", "application/x-ruby"},
 #line 923 "extensions.gperf"
-      {"oxps", "application/vnd.ms-xpsdocument"},
+      {"oxps", "application/oxps"},
 #line 356 "extensions.gperf"
       {"ens", "application/x-endnote-style"},
 #line 47 "extensions.gperf"
@@ -772,7 +772,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1442 "extensions.gperf"
       {"warc", "application/warc"},
 #line 884 "extensions.gperf"
-      {"odc", "application/vnd.oasis.opendocument.chart-template"},
+      {"odc", "application/vnd.oasis.opendocument.chart"},
 #line 278 "extensions.gperf"
       {"dex", "application/x-dex"},
 #line 1162 "extensions.gperf"
@@ -808,7 +808,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 427 "extensions.gperf"
       {"fn", "text/plain"},
 #line 1061 "extensions.gperf"
-      {"raw", "image/x-raw-panasonic"},
+      {"raw", "image/x-panasonic-raw"},
 #line 998 "extensions.gperf"
       {"ppam", "application/vnd.ms-powerpoint.addin.macroEnabled.12"},
 #line 817 "extensions.gperf"
@@ -896,7 +896,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 738 "extensions.gperf"
       {"mdtext", "text/markdown"},
 #line 835 "extensions.gperf"
-      {"mts", "video/MP2T"},
+      {"mts", "model/vnd.mts"},
 #line 736 "extensions.gperf"
       {"mdi", "image/vnd.ms-modi"},
 #line 1035 "extensions.gperf"
@@ -930,13 +930,13 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 29 "extensions.gperf"
       {"a", "application/x-archive"},
 #line 120 "extensions.gperf"
-      {"bdm", "video/MP2T"},
+      {"bdm", "application/vnd.syncml.dm+wbxml"},
 #line 978 "extensions.gperf"
-      {"pl", "text/x-perl"},
+      {"pl", "application/x-perl"},
 #line 1297 "extensions.gperf"
       {"sxi", "application/vnd.sun.xml.impress"},
 #line 320 "extensions.gperf"
-      {"dtd", "text/xml"},
+      {"dtd", "application/xml-dtd"},
 #line 396 "extensions.gperf"
       {"fcdt", "application/vnd.adobe.formscentral.fcdt"},
 #line 293 "extensions.gperf"
@@ -1000,7 +1000,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1279 "extensions.gperf"
       {"stx", "application/x-sas-transport"},
 #line 966 "extensions.gperf"
-      {"php", "application/x-httpd-php"},
+      {"php", "text/x-php"},
 #line 309 "extensions.gperf"
       {"dpr", "text/x-pascal"},
 #line 506 "extensions.gperf"
@@ -1060,7 +1060,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1472 "extensions.gperf"
       {"wkz", "application/x-Wingz"},
 #line 709 "extensions.gperf"
-      {"m4a", "audio/mp4"},
+      {"m4a", "audio/MP4A-LATM"},
 #line 33 "extensions.gperf"
       {"aart", "text/plain"},
 #line 753 "extensions.gperf"
@@ -1074,7 +1074,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 665 "extensions.gperf"
       {"latex", "application/x-latex"},
 #line 96 "extensions.gperf"
-      {"asx", "video/x-ms-asf"},
+      {"asx", "application/x-ms-asx"},
 #line 1245 "extensions.gperf"
       {"spot", "text/vnd.in3d.spot"},
 #line 1346 "extensions.gperf"
@@ -1118,7 +1118,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 584 "extensions.gperf"
       {"install", "text/plain"},
 #line 985 "extensions.gperf"
-      {"pm", "text/x-perl"},
+      {"pm", "application/x-pagemaker"},
 #line 1587 "extensions.gperf"
       {"xsamples", "text/plain"},
 #line 1506 "extensions.gperf"
@@ -1140,7 +1140,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 781 "extensions.gperf"
       {"mmmp", "application/vnd.mindjet.mindmanager"},
 #line 1326 "extensions.gperf"
-      {"thmx", "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+      {"thmx", "application/vnd.ms-officetheme"},
 #line 1228 "extensions.gperf"
       {"smp", "audio/vnd.sealedmedia.softseal.mpeg"},
 #line 649 "extensions.gperf"
@@ -1216,9 +1216,9 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1413 "extensions.gperf"
       {"vis", "application/vnd.visionary"},
 #line 214 "extensions.gperf"
-      {"cmd", "application/x-msdownload"},
+      {"cmd", "application/x-msdos-program"},
 #line 114 "extensions.gperf"
-      {"bat", "application/x-msdownload"},
+      {"bat", "application/x-bat"},
 #line 1049 "extensions.gperf"
       {"qwt", "application/vnd.Quark.QuarkXPress"},
 #line 323 "extensions.gperf"
@@ -1242,7 +1242,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1235 "extensions.gperf"
       {"snf", "application/x-font-snf"},
 #line 368 "extensions.gperf"
-      {"es", "application/ecmascript"},
+      {"es", "text/ecmascript"},
 #line 748 "extensions.gperf"
       {"mfm", "application/vnd.mfmp"},
 #line 1517 "extensions.gperf"
@@ -1260,7 +1260,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1158 "extensions.gperf"
       {"sdf", "application/vnd.Kinar"},
 #line 959 "extensions.gperf"
-      {"pfm", "application/x-font-type1"},
+      {"pfm", "application/x-font-printer-metric"},
 #line 438 "extensions.gperf"
       {"fsc", "application/vnd.fsc.weblaunch"},
 #line 1225 "extensions.gperf"
@@ -1272,7 +1272,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 92 "extensions.gperf"
       {"asnd", "audio/vnd.adobe.soundbooth"},
 #line 1509 "extensions.gperf"
-      {"x3d", "model/x3d+xml"},
+      {"x3d", "application/vnd.hzn-3d-crossword"},
 #line 1603 "extensions.gperf"
       {"xz", "application/x-xz"},
 #line 56 "extensions.gperf"
@@ -1280,7 +1280,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 460 "extensions.gperf"
       {"gam", "application/x-tads"},
 #line 640 "extensions.gperf"
-      {"kdc", "image/x-raw-kodak"},
+      {"kdc", "image/x-kodak-kdc"},
 #line 600 "extensions.gperf"
       {"jad", "text/vnd.sun.j2me.app-descriptor"},
 #line 987 "extensions.gperf"
@@ -1368,7 +1368,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1045 "extensions.gperf"
       {"qpw", "application/x-quattro-pro"},
 #line 1484 "extensions.gperf"
-      {"wmz", "application/x-msmetafile"},
+      {"wmz", "application/x-ms-wmz"},
 #line 997 "extensions.gperf"
       {"ppa", "application/vnd.ms-powerpoint"},
 #line 511 "extensions.gperf"
@@ -1516,7 +1516,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 789 "extensions.gperf"
       {"mods", "application/mods+xml"},
 #line 830 "extensions.gperf"
-      {"msi", "application/x-msdownload"},
+      {"msi", "application/x-ms-installer"},
 #line 893 "extensions.gperf"
       {"oex", "application/x-opera-extension"},
 #line 380 "extensions.gperf"
@@ -1578,7 +1578,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 818 "extensions.gperf"
       {"mqy", "application/vnd.Mobius.MQY"},
 #line 798 "extensions.gperf"
-      {"mp4", "audio/mp4"},
+      {"mp4", "application/mp4"},
 #line 1481 "extensions.gperf"
       {"wmlsc", "application/vnd.wap.wmlscriptc"},
 #line 823 "extensions.gperf"
@@ -1628,7 +1628,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 304 "extensions.gperf"
       {"dot", "application/msword"},
 #line 1255 "extensions.gperf"
-      {"srf", "image/x-raw-sony"},
+      {"srf", "image/x-sony-srf"},
 #line 1526 "extensions.gperf"
       {"xcf", "image/x-xcf"},
 #line 90 "extensions.gperf"
@@ -1710,7 +1710,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 303 "extensions.gperf"
       {"docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
 #line 888 "extensions.gperf"
-      {"odi", "application/vnd.oasis.opendocument.image-template"},
+      {"odi", "application/vnd.oasis.opendocument.image"},
 #line 847 "extensions.gperf"
       {"myi", "application/x-mysql-misam-compressed-index"},
 #line 632 "extensions.gperf"
@@ -1818,7 +1818,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1183 "extensions.gperf"
       {"sgl", "application/vnd.stardivision.writer-global"},
 #line 1185 "extensions.gperf"
-      {"sgml", "text/sgml"},
+      {"sgml", "application/sgml"},
 #line 378 "extensions.gperf"
       {"exi", "application/exi"},
 #line 14 "extensions.gperf"
@@ -1862,7 +1862,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 583 "extensions.gperf"
       {"inkml", "application/inkml+xml"},
 #line 57 "extensions.gperf"
-      {"afm", "application/x-font-type1"},
+      {"afm", "application/x-font-adobe-metric"},
 #line 327 "extensions.gperf"
       {"dwf", "model/vnd.dwf"},
 #line 517 "extensions.gperf"
@@ -1918,7 +1918,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1425 "extensions.gperf"
       {"vsdx", "application/vnd.ms-visio.drawing"},
 #line 636 "extensions.gperf"
-      {"k25", "image/x-raw-kodak"},
+      {"k25", "image/x-kodak-k25"},
 #line 358 "extensions.gperf"
       {"entity", "application/vnd.nervana"},
 #line 1422 "extensions.gperf"
@@ -1934,7 +1934,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 784 "extensions.gperf"
       {"mmr", "image/vnd.fujixerox.edmics-mmr"},
 #line 1459 "extensions.gperf"
-      {"webm", "audio/webm"},
+      {"webm", "video/webm"},
 #line 326 "extensions.gperf"
       {"dvi", "application/x-dvi"},
 #line 1594 "extensions.gperf"
@@ -2002,7 +2002,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 764 "extensions.gperf"
       {"mjp2", "video/MJ2"},
 #line 354 "extensions.gperf"
-      {"emz", "application/x-msmetafile"},
+      {"emz", "image/x-emf-compressed"},
 #line 486 "extensions.gperf"
       {"gram", "application/srgs"},
 #line 465 "extensions.gperf"
@@ -2030,7 +2030,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 442 "extensions.gperf"
       {"ft11", "image/x-freehand"},
 #line 885 "extensions.gperf"
-      {"odf", "application/vnd.oasis.opendocument.formula-template"},
+      {"odf", "application/vnd.oasis.opendocument.formula"},
 #line 545 "extensions.gperf"
       {"hvs", "application/vnd.yamaha.hv-script"},
 #line 740 "extensions.gperf"
@@ -2048,7 +2048,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1546 "extensions.gperf"
       {"xla", "application/vnd.ms-excel"},
 #line 954 "extensions.gperf"
-      {"pef", "image/x-raw-pentax"},
+      {"pef", "image/x-pentax-pef"},
 #line 286 "extensions.gperf"
       {"diff", "text/x-diff"},
 #line 275 "extensions.gperf"
@@ -2232,7 +2232,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1454 "extensions.gperf"
       {"wdb", "application/vnd.ms-works"},
 #line 907 "extensions.gperf"
-      {"opus", "audio/ogg"},
+      {"opus", "audio/opus"},
 #line 131 "extensions.gperf"
       {"bmp", "image/bmp"},
 #line 206 "extensions.gperf"
@@ -2254,7 +2254,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1409 "extensions.gperf"
       {"vda", "image/x-tga"},
 #line 855 "extensions.gperf"
-      {"nef", "image/x-raw-nikon"},
+      {"nef", "image/x-nikon-nef"},
 #line 1503 "extensions.gperf"
       {"wspolicy", "application/wspolicy+xml"},
 #line 981 "extensions.gperf"
@@ -2282,7 +2282,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1271 "extensions.gperf"
       {"stf", "application/vnd.wt.stf"},
 #line 1252 "extensions.gperf"
-      {"sr2", "image/x-raw-sony"},
+      {"sr2", "image/x-sony-sr2"},
 #line 968 "extensions.gperf"
       {"php4", "text/x-php"},
 #line 143 "extensions.gperf"
@@ -2328,7 +2328,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 172 "extensions.gperf"
       {"cdbcmsg", "application/vnd.contact.cmsg"},
 #line 377 "extensions.gperf"
-      {"exe", "application/x-msdownload"},
+      {"exe", "application/x-dosexec"},
 #line 119 "extensions.gperf"
       {"bdf", "application/x-font-bdf"},
 #line 402 "extensions.gperf"
@@ -2464,7 +2464,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 338 "extensions.gperf"
       {"ecelp4800", "audio/vnd.nuera.ecelp4800"},
 #line 246 "extensions.gperf"
-      {"cu", "application/x-cu-seeme"},
+      {"cu", "application/cu-seeme"},
 #line 1470 "extensions.gperf"
       {"wkq", "application/x-quattro-pro"},
 #line 401 "extensions.gperf"
@@ -2642,7 +2642,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 1460 "extensions.gperf"
       {"webmanifest", "application/manifest+json"},
 #line 1324 "extensions.gperf"
-      {"tga", "image/x-tga"},
+      {"tga", "image/x-targa"},
 #line 160 "extensions.gperf"
       {"cb7", "application/x-cbr"},
 #line 479 "extensions.gperf"
@@ -3018,7 +3018,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 607 "extensions.gperf"
       {"jfi", "image/jpeg"},
 #line 1419 "extensions.gperf"
-      {"vor", "application/vnd.stardivision.writer"},
+      {"vor", "application/x-staroffice-template"},
 #line 524 "extensions.gperf"
       {"hfa", "application/x-erdas-hfa"},
 #line 877 "extensions.gperf"
@@ -3288,7 +3288,7 @@ lookup_extension (register const char *str, register unsigned int len)
 #line 624 "extensions.gperf"
       {"jpg2", "image/jp2"},
 #line 895 "extensions.gperf"
-      {"ogg", "audio/ogg"},
+      {"ogg", "audio/vorbis"},
 #line 1128 "extensions.gperf"
       {"sas7bbak", "application/x-sas-backup"},
 #line 792 "extensions.gperf"

@@ -54,6 +54,11 @@ describe Protocol::Media::Registry do
 		expect(record.type.name).to be == "application/vnd.ms-excel"
 	end
 	
+	it "prefers a type's preferred extension" do
+		expect(subject.for_extension("webm").type.name).to be == "video/webm"
+		expect(subject.for_extension("weba").type.name).to be == "audio/webm"
+	end
+	
 	it "looks up a media type by path" do
 		record = subject.for_path("public/index.HTML")
 		
